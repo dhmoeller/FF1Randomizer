@@ -2,28 +2,28 @@
 @model FF1RandomizerOnline.Models.RandomizeViewModel
 
 <form id="RandomizeForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Randomize">
-  <div id="vueScope">
+<div id="vueScope">
 	<label class="section">Upload ROM</label><br />
 	<label class="btn btn-default"><input type="file" accept=".nes" asp-for="File" style="display: none" onchange="setFileName();"/>Browse</label> <label for="File" id="file-label"></label>
 	@Html.ValidationSummary()
 	<div class="row">
 		<div class="col-xs-12 col-md-5">
-            <div class="row"><div class="col-xs-12"><label asp-for="Seed" />Seed</div></div>
-            <div class="row">
-                <div class="col-xs-7"><input class="form-control" asp-for="Seed" type="text" oninput="validateSeed();" /></div>
-		        <div class="col-xs-5"><input class="btn btn-default" type="button" value="New Seed" onclick="newSeed();" /></div>
-            </div>
-        </div>
+			<div class="row"><div class="col-xs-12"><label asp-for="Seed" />Seed</div></div>
+			<div class="row">
+				<div class="col-xs-7"><input class="form-control" asp-for="Seed" type="text" oninput="validateSeed();" /></div>
+				<div class="col-xs-5"><input class="btn btn-default" type="button" value="New Seed" onclick="newSeed();" /></div>
+			</div>
+		</div>
 		<div class="col-xs-12 col-md-7">
-            <div class="row"><div class="col-xs-12"><label for="Flags">Flags</label></div></div>
-            <div class="row">
-                <div class="col-xs-7"><input class="form-control" v-model="FlagsInput" type="text" asp-for="FlagsInput" id="Flags" /></div>
-		        <div class="col-xs-4"><input class="btn btn-default" type="button" value="Import..." v-on:click="importSeedFlags();" /></div>
-            </div>
-        </div>
+			<div class="row"><div class="col-xs-12"><label for="Flags">Flags</label></div></div>
+			<div class="row">
+				<div class="col-xs-7"><input class="form-control" v-model="FlagsInput" type="text" asp-for="FlagsInput" id="Flags" /></div>
+				<div class="col-xs-4"><input class="btn btn-default" type="button" value="Import..." v-on:click="importSeedFlags();" /></div>
+			</div>
+		</div>
 	</div>
-    <br/>
-    <div class="row">
+	<br/>
+	<div class="row">
 		<div class="col-xs-12">
 			Presets:
 			<a v-on:click.prevent="preset('DACBHFAMYAFADAfPBBWoWAyA')">Classic (No NPC Shuffle)</a>,
@@ -33,7 +33,7 @@
 			<a v-on:click.prevent="preset('HADBHHBF7BBVDAfPBBPeZUyA')">Normal NPC Shuffle</a>,
 			<a v-on:click.prevent="preset('PADBHHBP!HHdDAfPBBPoUUyA')">Full NPC Shuffle</a>
 		</div>
-    </div>
+	</div>
 	<ul class="section nav nav-pills">
 		<li class="active"><a href="#shuffle" data-toggle="tab">Shuffle</a></li>
 		<li><a href="#treasures" data-toggle="tab">Treasures</a></li>
@@ -47,8 +47,14 @@
 	<div class="tab-content clearfix" style="height: 500px">
 		<div class="section tab-pane active" id="shuffle">
 			<div class="col-xs-4">
+				<div class="checkbox-cell"><input v-model="Entrances" type="checkbox" asp-for="Flags.Entrances" /> <label asp-for="Flags.Entrances"></label></div>
+				<div class="checkbox-cell"><input v-model="Towns" type="checkbox" asp-for="Flags.Towns" /> <label asp-for="Flags.Towns"></label></div>
+				<div class="checkbox-cell"><input v-model="Floors" type="checkbox" asp-for="Flags.Floors" /> <label asp-for="Flags.Floors"></label></div>
+				<div class="checkbox-cell" title="Floor shuffle allows unimportant final floors to mismatch from entrance, this allows ALL final floors to mismatch.">
+					<input disabled="disabled" class="indent" v-model="AllowFloorMismatch" type="checkbox" asp-for="Flags.AllowFloorMismatch" /> <label :style="!Floors ? { color: 'grey'} : {}" asp-for="Flags.AllowFloorMismatch">Allow Last Floor Mismatch</label>
+				</div>
 				<div class="checkbox-cell"><input v-model="Shops" type="checkbox" asp-for="Flags.Shops" /> <label asp-for="Flags.Shops"></label></div>
-				<div class="checkbox-cell" title="All weapons and armor for sale are instead replaced with random items of that type"><input class="indent" v-model="RandomWares" v-if="Shops" type="checkbox" asp-for="Flags.RandomWares" /> <label asp-for="Flags.RandomWares">Random Weapons and Armor</label> <small>(<a asp-area="" asp-controller="Home" asp-action="WhatsNew">2.1.0</a>)</small></div>
+				<div class="checkbox-cell" title="All weapons and armor for sale are instead replaced with random items of that type"><input class="indent" v-model="RandomWares" :disabled="!Shops" type="checkbox" asp-for="Flags.RandomWares" /> <label :style="!Shops ? { color: 'grey'} : {}" asp-for="Flags.RandomWares">Random Weapons and Armor</label> <small>(<a asp-area="" asp-controller="Home" asp-action="WhatsNew">2.1.0</a>)</small></div>
 				<div class="checkbox-cell"><input v-model="MagicShops" type="checkbox" asp-for="Flags.MagicShops" /> <label asp-for="Flags.MagicShops">Magic Shops</label></div>
 				<div class="checkbox-cell"><input v-model="MagicLevels" type="checkbox" asp-for="Flags.MagicLevels" /> <label asp-for="Flags.MagicLevels">Magic Levels</label></div>
 				<div class="checkbox-cell"><input v-model="MagicPermissions" :disabled="!MagicLevels" class="indent" type="checkbox" asp-for="Flags.MagicPermissions" /> <label :style="!MagicLevels ? { color: 'grey'} : {}" asp-for="Flags.MagicPermissions">Keep Permissions</label></div>
