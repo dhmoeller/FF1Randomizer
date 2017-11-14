@@ -12,7 +12,7 @@ namespace FF1Lib
 	// ReSharper disable once InconsistentNaming
 	public partial class FF1Rom : NesRom
 	{
-		public const string Version = "2.2.0";
+		public const string Version = "2.3.0";
 
 		public const int RngOffset = 0x7F100;
 		public const int RngSize = 256;
@@ -91,7 +91,6 @@ namespace FF1Lib
 
 			var overworldMap = new OverworldMap(this, flags);
 			var maps = ReadMaps();
-			var incentivesData = new IncentiveData(rng, flags, overworldMap.MapLocationRequirements);
 			var shopItemLocation = ItemLocations.CaravanItemShop1;
 
 			if (flags.ModernBattlefield)
@@ -120,19 +119,6 @@ namespace FF1Lib
 				ShuffleItemMagic(rng);
 			}
 
-			if (flags.Shops)
-			{
-				var excludeItemsFromRandomShops = flags.Treasures
-					? incentivesData.ForcedItemPlacements.Select(x => x.Item).Concat(incentivesData.IncentiveItems).ToList()
-					: new List<Item>();
-				shopItemLocation = ShuffleShops(rng, flags.EnemyStatusAttacks, flags.RandomWares, excludeItemsFromRandomShops);
-			}
-
-			if (flags.Treasures || flags.NPCItems || flags.NPCFetchItems)
-			{
-				ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements);
-			}
-
 			if (flags.Treasures && flags.ShardHunt && !flags.ChaosRush)
 			{
 				EnableShardHunt(rng, flags.ExtraShards ? rng.Between(24, 30) : 16, maps);
@@ -141,6 +127,41 @@ namespace FF1Lib
 			if (flags.TransformFinalFormation)
 			{
 				TransformFinalFormation((FinalFormation)rng.Between(0, Enum.GetValues(typeof(FinalFormation)).Length - 1));
+			}
+			
+			var maxRetries = 50;
+			for (var i = 0; i < maxRetries; i++)
+			{
+				try
+				{
+					overworldMap = new OverworldMap(this, flags);
+					if ((flags.Entrances || flags.Floors || flags.Towns) && flags.Treasures && flags.NPCItems)
+					{
+						overworldMap.ShuffleEntrancesAndFloors(rng, flags);
+					}
+
+					var incentivesData = new IncentiveData(rng, flags, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements);
+
+					if (flags.Shops)
+					{
+						var excludeItemsFromRandomShops = flags.Treasures
+							? incentivesData.ForcedItemPlacements.Select(x => x.Item).Concat(incentivesData.IncentiveItems).ToList()
+							: new List<Item>();
+						shopItemLocation = ShuffleShops(rng, flags.EnemyStatusAttacks, flags.RandomWares, excludeItemsFromRandomShops);
+					}
+
+					if (flags.Treasures || flags.NPCItems || flags.NPCFetchItems)
+					{
+						ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements);
+					}
+					break;
+				}
+				catch (InsaneException)
+				{
+					Console.WriteLine("Insane seed. Retrying");
+					if (maxRetries > (i + 1)) continue;
+					throw new InvalidOperationException("Failed Sanity Check too many times");
+				}
 			}
 
 			if (flags.MagicShops)
