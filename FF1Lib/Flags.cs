@@ -169,10 +169,14 @@ namespace FF1Lib
 		public double ExpMultiplier { get; set; }
 		[FlagString(Character = 19, Multiplier = 10)]
 		public int ExpBonus { get; set; }
-		[FlagString(Character = 20, Multiplier = 1)]
-		public int ForcedPartyMembers { get; set; }
-		[FlagString(Character = 21, Multiplier = 1)]
-		public int ReservedForForcedPartyMembersExpansion { get; set; }
+		[FlagString(Character = 20, Multiplier = 1, EndBit = 4)]
+		public int ForcedPartyMembers1 { get; set; }
+		[FlagString(Character = 20, Multiplier = 1, StartBit = 8)]
+		public int ForcedPartyMembers2 { get; set; }
+		[FlagString(Character = 21, Multiplier = 1, EndBit = 4)]
+		public int ForcedPartyMembers3 { get; set; }
+		[FlagString(Character = 21, Multiplier = 1, StartBit = 8)]
+		public int ForcedPartyMembers4 { get; set; }
 		
 		[FlagString(Character = 22, FlagBit = 1)]
 		public bool OnlyRequireGameIsBeatable { get; set; }
@@ -372,6 +376,8 @@ namespace FF1Lib
 	{
 		public int Character { get; set; }
 		public int FlagBit { get; set; }
+		public int StartBit { get; set; } = 1;
+		public int EndBit { get; set; } = 32;
 		public double Multiplier { get; set; }
 
 		public string ToVueComputedPropertyString()
@@ -384,9 +390,10 @@ namespace FF1Lib
 				$"this.flagString = this.flagString.substr(0,{Character}) + base64Chars[toggled] + this.flagString.substr({Character + 1});}}}}";
 
 			return $"{{get:function (){{ if (this.flagString.length <= {Character}) return 0; " +
-			$"return base64Chars.indexOf(this.flagString[{Character}]) * {Multiplier};}}," +
+			$"return (((base64Chars.indexOf(this.flagString[{Character}]) & ~{StartBit - 1})%{EndBit * 2})/{StartBit}) * {Multiplier};}}," +
 			$"set:function(newValue){{while(this.flagString.length <= {Character})this.flagString += base64Chars[0];" +
-			$"var scaledValue = (newValue / {Multiplier}).toFixed() % base64Chars.length;" +
+			$"var currentCharacterValue = (base64Chars.indexOf(this.flagString[{Character}]) & ~{EndBit * 2 - StartBit}) % 64;" +
+			$"var scaledValue = ((((newValue / {Multiplier}).toFixed()%{EndBit * 2}) * {StartBit}) | currentCharacterValue) % base64Chars.length;" +
 			$"this.flagString = this.flagString.substr(0,{Character}) + base64Chars[scaledValue] + this.flagString.substr({Character + 1});}} }}";
 
 		}

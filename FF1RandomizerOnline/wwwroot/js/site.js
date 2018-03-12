@@ -63,7 +63,8 @@ var defaultIncentives = initalFlagString.substring(START_INCENTIVES, END_INCENTI
 var app = new Vue({
   el: '#vueScope',
   data: {
-    flagString: initalFlagString
+    flagString: initalFlagString,
+    forcePartyIndexes: ["Open", "Random", "Fighter", "Thief", "Black Belt", "Red Mage", "White Mage", "Black Mage"]
   },
   methods: {
     incentivePreset: function(presetString) {

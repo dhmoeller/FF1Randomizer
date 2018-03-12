@@ -244,9 +244,9 @@ namespace FF1Lib
 				ScaleEnemyStats(flags.EnemyScaleFactor, rng);
 			}
 
-			if (flags.ForcedPartyMembers > 0)
+			if (flags.ForcedPartyMembers1 > 0)
 			{
-				PartyRandomize(rng, flags.ForcedPartyMembers);
+				PartyRandomize(rng, flags);
 			}
 
 			EnableCanalBridge();

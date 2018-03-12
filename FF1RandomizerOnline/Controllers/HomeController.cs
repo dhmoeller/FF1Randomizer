@@ -128,7 +128,10 @@ namespace FF1RandomizerOnline.Controllers
 					ModernBattlefield = true,
 					Music = MusicShuffle.None,
 
-					ForcedPartyMembers = 1,
+					ForcedPartyMembers1 = 1,
+					ForcedPartyMembers2 = 0,
+					ForcedPartyMembers3 = 0,
+					ForcedPartyMembers4 = 0,
 					PriceScaleFactor = 3.0,
 					EnemyScaleFactor = 1.5,
 					ExpMultiplier = 3.0,

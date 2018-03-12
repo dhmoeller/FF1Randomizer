@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RomUtilities;
 
@@ -118,16 +119,28 @@ namespace FF1Lib
 			Put(0x39D25, Enumerable.Repeat((byte)0xEA, 14).ToArray());
 		}
 
-		public void PartyRandomize(MT19337 rng, int numberForced)
+		public void PartyRandomize(MT19337 rng, Flags flags)
 		{
+			var party = 
+				new List<int> { 
+					flags.ForcedPartyMembers1, 
+					flags.ForcedPartyMembers2, 
+					flags.ForcedPartyMembers3, 
+					flags.ForcedPartyMembers4 
+				}.Where(x => x > 0).OrderBy(x => x).ToList();
 			// Always randomize all 4 default members (but don't force if not needed)
 			Data[0x3A0AE] = (byte)rng.Between(0, 5);
 			Data[0x3A0BE] = (byte)rng.Between(0, 5);
 			Data[0x3A0CE] = (byte)rng.Between(0, 5);
 			Data[0x3A0DE] = (byte)rng.Between(0, 5);
 
-			if (numberForced <= 0)
-				return;
+			var numberForced = party.Count;
+			if (numberForced <= 0) return;
+			for (int i = 0; i < numberForced; i++)
+			{
+				if (party[i] == 1) continue;
+				Data[0x3A0AE + i * 0x10] = (byte)(party[i] - 2);
+			}
 
 			Data[0x39D35] = 0xE0;
 			Data[0x39D36] = (byte)(numberForced * 0x10);
