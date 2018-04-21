@@ -3,6 +3,30 @@ using System.Linq;
 
 namespace FF1Lib
 {
+	public struct Coordinate
+	{
+		private readonly short _identityValue;
+		public readonly byte X;
+		public readonly byte Y;
+		public Coordinate(byte x, byte y)
+		{
+			X = x;
+			Y = y;
+			_identityValue = (short)(x * 256 + y);
+		}
+	}
+	public struct Teleport
+	{
+		public readonly MapIndex Index;
+		public readonly byte CoordinateX;
+		public readonly byte CoordinateY;
+		public Teleport(MapIndex index, Coordinate coordinates)
+		{
+			Index = index;
+			CoordinateX = coordinates.X;
+			CoordinateY = coordinates.Y;
+		}
+	}
     public struct EntranceTeleport
     {
         public readonly MapLocation TeleportDestination;
@@ -35,11 +59,13 @@ namespace FF1Lib
         public static EntranceTeleport Gaia = new EntranceTeleport(MapLocation.Gaia, 5, 61, 61, 0);
         public static EntranceTeleport Onrac = new EntranceTeleport(MapLocation.Onrac, 6, 1, 12, 0, 7);
         public static EntranceTeleport Lefein = new EntranceTeleport(MapLocation.Lefein, 7, 19, 23, 0);
+        
         public static EntranceTeleport ConeriaCastle = new EntranceTeleport(MapLocation.ConeriaCastle, 8, 12, 35, 1, 4);
         public static EntranceTeleport ElflandCastle = new EntranceTeleport(MapLocation.ElflandCastle, 9, 16, 31, 1);
         public static EntranceTeleport NorthwestCastle = new EntranceTeleport(MapLocation.NorthwestCastle, 10, 22, 24, 1);
         public static EntranceTeleport CastleOrdeals = new EntranceTeleport(MapLocation.CastleOrdeals, 11, 12, 21, 1, 3);
         public static EntranceTeleport TempleOfFiends = new EntranceTeleport(MapLocation.TempleOfFiends, 12, 20, 30, 5);
+        
         public static EntranceTeleport EarthCave = new EntranceTeleport(MapLocation.EarthCave, 13, 23, 24, 2, 5);
         public static EntranceTeleport GurguVolcano = new EntranceTeleport(MapLocation.GurguVolcano, 14, 27, 15, 2, 6);
         public static EntranceTeleport IceCave = new EntranceTeleport(MapLocation.IceCave, 15, 7, 1, 3, 2);
