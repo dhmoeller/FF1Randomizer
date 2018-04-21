@@ -150,7 +150,7 @@ namespace FF1Lib
 			};
 			var townsWithShops = new List<MapLocation> {
 				MapLocation.ConeriaTown, MapLocation.Pravoka, MapLocation.ElflandTown, 
-				MapLocation.CresentLake, MapLocation.Gaia, MapLocation.Melmond
+				MapLocation.CresentLake, MapLocation.Gaia
 			};
 			var invalidBeforeFirstProgressionDestinations = new List<MapLocation> {
 				MapLocation.EarthCave, MapLocation.GurguVolcano, MapLocation.Waterfall,
