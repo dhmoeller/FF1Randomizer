@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using RomUtilities;
@@ -29,7 +30,8 @@ namespace FF1Lib
 													IItemPlacementFlags flags,
 													IncentiveData incentivesData,
 													ItemShopSlot caravanItemLocation,
-													Dictionary<MapLocation, List<MapChange>> mapLocationRequirements)
+													Dictionary<MapLocation, List<MapChange>> mapLocationRequirements,
+													Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements)
 		{
 			var vanillaNPCs = !flags.NPCItems && !flags.NPCFetchItems;
 			if (!vanillaNPCs)
@@ -60,7 +62,8 @@ namespace FF1Lib
 											incentivesData,
 											treasurePool,
 											caravanItemLocation,
-											mapLocationRequirements);
+											mapLocationRequirements,
+											mapLocationFloorRequirements);
 
 			if (flags.FreeBridge)
 			{

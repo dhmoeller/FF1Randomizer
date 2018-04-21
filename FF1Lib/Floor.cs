@@ -19,7 +19,7 @@ namespace FF1Lib
 		ElflandCastle = 9,
 		NorthwestCastle = 10,
 		CastleOrdeals1F = 11,
-		TemploOfFiends = 12,
+		TempleOfFiends = 12,
 		EarthCaveB1 = 13,
 		GurguVolcanoB1 = 14,
 		IceCaveB1 = 15,
@@ -68,6 +68,7 @@ namespace FF1Lib
 		TempleOfFiendsAir = 58,
 		TempleOfFiendsChaos = 59,
 		TitansTunnel = 60,
+		Overworld = 255,
 	}
 
 	public enum Tileset : byte
@@ -148,6 +149,7 @@ namespace FF1Lib
 		CastleOrdeals13 = 61,
 		ConeriaCastle = 62,
 		RescuePrincess = 63,
+		Overworld = 255
 	}
 
 	public enum OverworldExit : byte
@@ -168,6 +170,7 @@ namespace FF1Lib
 		ExitUnused5 = 13,
 		ExitUnused6 = 14,
 		ExitUnused7 = 15,
+		None = 255
 	}
 
 	// Dead end with no point of egress beyond a possible WARP back to where you entered.

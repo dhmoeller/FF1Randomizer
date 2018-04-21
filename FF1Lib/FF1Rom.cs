@@ -120,10 +120,10 @@ namespace FF1Lib
 
 			if (flags.Entrances && flags.Treasures && flags.NPCItems)
 			{
-				overworldMap.ShuffleEntrances(rng, flags.Towns);
-			}
-
-			if (flags.Floors)
+				overworldMap.ShuffleEntrancesAndFloors(rng, flags.Towns);
+			} 
+			
+			else if (flags.Floors)
 			{ 
 				ShuffleFloors(rng);
 			}
@@ -140,7 +140,7 @@ namespace FF1Lib
 
 			if (flags.Treasures || flags.NPCItems || flags.NPCFetchItems)
 			{
-				ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements);
+				ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements);
 
 				if (flags.ShardHunt)
 				{
