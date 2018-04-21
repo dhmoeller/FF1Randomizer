@@ -13,9 +13,9 @@ namespace Sandbox
 		private static List<MapLocation> ItemShops =
 			new List<MapLocation>
 			{
-				MapLocation.ConeriaTown,
+				MapLocation.Coneria,
 				MapLocation.Pravoka,
-				MapLocation.ElflandTown,
+				MapLocation.Elfland,
 				MapLocation.CresentLake,
 				MapLocation.Onrac,
 				MapLocation.Gaia,
@@ -25,7 +25,8 @@ namespace Sandbox
 									IItemPlacementFlags flags, 
 									IncentiveData incentivesData, 
 									ItemShopSlot caravanItemLocation,
-									Dictionary<MapLocation, List<MapChange>> mapLocationRequirements)
+									Dictionary<MapLocation, List<MapChange>> mapLocationRequirements,
+									Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements)
 		{
 			var placedItems = new List<IRewardSource>();
 			var treasurePool = ItemLocations.AllTreasures.Where(x => !x.IsUnused).Select(x => x.Item)
@@ -60,7 +61,8 @@ namespace Sandbox
 														   incentivesData,
 														   treasurePool,
 														   itemShopItem,
-														   mapLocationRequirements);
+														   mapLocationRequirements,
+														   mapLocationFloorRequirements);
 				timeElapsed.Stop();
 
 				var outputIndexes = placedItems.ToLookup(x => x.Item, x => x);
@@ -95,7 +97,7 @@ namespace Sandbox
 
 				foreach (Item item in requirementsToCheck)
 				{
-					if (!ItemPlacement.CheckSanity(placedItems.Where(x => x.Item != item).ToList(), mapLocationRequirements, new Flags{OnlyRequireGameIsBeatable =true}))
+					if (!ItemPlacement.CheckSanity(placedItems.Where(x => x.Item != item).ToList(), mapLocationRequirements, mapLocationFloorRequirements, new Flags{OnlyRequireGameIsBeatable =true}))
 						requirementChecks[item]++;
 				}
 				

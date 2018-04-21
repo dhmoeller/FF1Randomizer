@@ -118,33 +118,48 @@ namespace FF1Lib
 				ShuffleItemMagic(rng);
 			}
 
-			if (flags.Entrances && flags.Treasures && flags.NPCItems)
+			var maxRetries = 20;
+			for (var i = 0; i < maxRetries; i++)
 			{
-				overworldMap.ShuffleEntrances(rng, flags.Towns);
-			}
-
-			if (flags.Floors)
-			{ 
-				ShuffleFloors(rng);
-			}
-
-			var incentivesData = new IncentiveData(rng, flags, overworldMap.MapLocationRequirements);
-			
-			if (flags.Shops)
-			{
-				var excludeItemsFromRandomShops = flags.Treasures
-					? incentivesData.ForcedItemPlacements.Select(x => x.Item).Concat(incentivesData.IncentiveItems).ToList()
-					: new List<Item>();
-				shopItemLocation = ShuffleShops(rng, flags.EnemyStatusAttacks, flags.RandomWares, excludeItemsFromRandomShops);
-			}
-
-			if (flags.Treasures || flags.NPCItems || flags.NPCFetchItems)
-			{
-				ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements);
-
-				if (flags.ShardHunt)
+				try
 				{
-					EnableShardHunt(rng, maps);
+					overworldMap = new OverworldMap(this, flags);
+					if (flags.Entrances && flags.Treasures && flags.NPCItems)
+					{
+						overworldMap.ShuffleEntrancesAndFloors(rng, flags.Towns);
+					}
+
+					else if (flags.Floors)
+					{
+						ShuffleFloors(rng);
+					}
+
+					var incentivesData = new IncentiveData(rng, flags, overworldMap.MapLocationRequirements);
+
+					if (flags.Shops)
+					{
+						var excludeItemsFromRandomShops = flags.Treasures
+							? incentivesData.ForcedItemPlacements.Select(x => x.Item).Concat(incentivesData.IncentiveItems).ToList()
+							: new List<Item>();
+						shopItemLocation = ShuffleShops(rng, flags.EnemyStatusAttacks, flags.RandomWares, excludeItemsFromRandomShops);
+					}
+
+					if (flags.Treasures || flags.NPCItems || flags.NPCFetchItems)
+					{
+						ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements);
+
+						if (flags.ShardHunt)
+						{
+							EnableShardHunt(rng, maps);
+						}
+					}
+					break;
+				}
+				catch (InsaneException)
+				{
+					Console.WriteLine("Insane seed. Retrying");
+					if (maxRetries > (i + 1)) continue;
+					throw new InvalidOperationException("Failed Sanity Check too many times");
 				}
 			}
 
