@@ -278,8 +278,7 @@ namespace FF1Lib
 					currentItems.Contains(Item.Key))
 					currentAccess |= AccessRequirement.Key;
 				if (!currentMapChanges.HasFlag(MapChange.Bridge) &&
-					currentItems.Contains(Item.Bridge) &&
-					currentMapLocations().Contains(MapLocation.BridgeLocation))
+					currentItems.Contains(Item.Bridge))
 					currentMapChanges |= MapChange.Bridge;
 				if (!currentAccess.HasFlag(AccessRequirement.Crown) &&
 					currentItems.Contains(Item.Crown))

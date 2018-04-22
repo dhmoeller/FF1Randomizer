@@ -31,17 +31,17 @@ namespace FF1Lib
 			if (flags.MapMirageDock)
 			{
 				MapEditsToApply.Add(MirageDock);
-				mapLocationRequirements[MapLocation.MirageTower].Add(MapChange.Ship | MapChange.Canal | MapChange.Chime);
+				mapLocationRequirements[MapLocation.MirageTower1].Add(MapChange.Ship | MapChange.Canal | MapChange.Chime);
 			}
 			if (flags.MapVolcanoIceRiver)
 			{
 				MapEditsToApply.Add(VolcanoIceRiver);
-				mapLocationRequirements[MapLocation.GurguVolcano].Add(MapChange.Bridge | MapChange.Canoe);
+				mapLocationRequirements[MapLocation.GurguVolcano1].Add(MapChange.Bridge | MapChange.Canoe);
 				mapLocationRequirements[MapLocation.CresentLake].Add(MapChange.Bridge | MapChange.Canoe);
-				mapLocationRequirements[MapLocation.ElflandTown].Add(MapChange.Bridge | MapChange.Canoe);
+				mapLocationRequirements[MapLocation.Elfland].Add(MapChange.Bridge | MapChange.Canoe);
 				mapLocationRequirements[MapLocation.ElflandCastle].Add(MapChange.Bridge | MapChange.Canoe);
 				mapLocationRequirements[MapLocation.NorthwestCastle].Add(MapChange.Bridge | MapChange.Canoe);
-				mapLocationRequirements[MapLocation.MarshCave].Add(MapChange.Bridge | MapChange.Canoe);
+				mapLocationRequirements[MapLocation.MarshCave1].Add(MapChange.Bridge | MapChange.Canoe);
 				mapLocationRequirements[MapLocation.AirshipLocation].Add(MapChange.Bridge | MapChange.Canoe);
 				if(flags.MapCanalBridge)
 					mapLocationRequirements[MapLocation.DwarfCave].Add(MapChange.Bridge | MapChange.Canoe);
@@ -52,16 +52,16 @@ namespace FF1Lib
 				mapLocationRequirements[MapLocation.DwarfCave].Add(MapChange.None);
 				if(flags.MapCanalBridge)
 				{
-					mapLocationRequirements[MapLocation.GurguVolcano].Add(MapChange.Canoe);
+					mapLocationRequirements[MapLocation.GurguVolcano1].Add(MapChange.Canoe);
 					mapLocationRequirements[MapLocation.CresentLake].Add(MapChange.Canoe);
-					mapLocationRequirements[MapLocation.ElflandTown].Add(MapChange.Canoe);
+					mapLocationRequirements[MapLocation.Elfland].Add(MapChange.Canoe);
 					mapLocationRequirements[MapLocation.ElflandCastle].Add(MapChange.Canoe);
 					mapLocationRequirements[MapLocation.NorthwestCastle].Add(MapChange.Canoe);
-					mapLocationRequirements[MapLocation.MarshCave].Add(MapChange.Canoe);
+					mapLocationRequirements[MapLocation.MarshCave1].Add(MapChange.Canoe);
 					mapLocationRequirements[MapLocation.AirshipLocation].Add(MapChange.Canoe);
 					if (flags.MapVolcanoIceRiver)
 					{
-						mapLocationRequirements[MapLocation.IceCave].Add(MapChange.Canoe);
+						mapLocationRequirements[MapLocation.IceCave1].Add(MapChange.Canoe);
 						mapLocationRequirements[MapLocation.Pravoka].Add(MapChange.Canoe);
 						mapLocationRequirements[MapLocation.MatoyasCave].Add(MapChange.Canoe);
 					}
@@ -145,17 +145,17 @@ namespace FF1Lib
 		
 		public bool CheckEntranceSanity(IList<OWTeleportLocation> shuffledEntrances, bool allowUnsafe = false) {
 			var starterDestinations = new List<MapLocation> {
-				MapLocation.TempleOfFiends, MapLocation.Cardia6, MapLocation.Cardia4,
+				MapLocation.TempleOfFiends1, MapLocation.Cardia6, MapLocation.Cardia4,
 				MapLocation.Cardia2, MapLocation.MatoyasCave, MapLocation.DwarfCave
 			};
 			var townsWithShops = new List<MapLocation> {
-				MapLocation.ConeriaTown, MapLocation.Pravoka, MapLocation.ElflandTown, 
+				MapLocation.Coneria, MapLocation.Pravoka, MapLocation.Elfland, 
 				MapLocation.CresentLake, MapLocation.Gaia
 			};
 			var invalidBeforeFirstProgressionDestinations = new List<MapLocation> {
-				MapLocation.EarthCave, MapLocation.GurguVolcano, MapLocation.Waterfall,
-				MapLocation.CastleOrdeals, MapLocation.MirageTower, MapLocation.Onrac,
-				MapLocation.IceCave
+				MapLocation.EarthCave1, MapLocation.GurguVolcano1, MapLocation.Waterfall,
+				MapLocation.CastleOrdeals1, MapLocation.MirageTower1, MapLocation.SeaShrine1,
+				MapLocation.IceCave1
 			};
 			var connectedLocations = new List<OverworldTeleportIndex> {
 				OverworldTeleportIndex.ConeriaCastle, OverworldTeleportIndex.ConeriaTown, OverworldTeleportIndex.TempleOfFiends,

@@ -13,9 +13,9 @@ namespace Sandbox
 		private static List<MapLocation> ItemShops =
 			new List<MapLocation>
 			{
-				MapLocation.ConeriaTown,
+				MapLocation.Coneria,
 				MapLocation.Pravoka,
-				MapLocation.ElflandTown,
+				MapLocation.Elfland,
 				MapLocation.CresentLake,
 				MapLocation.Onrac,
 				MapLocation.Gaia,

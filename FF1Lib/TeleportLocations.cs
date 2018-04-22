@@ -4,6 +4,89 @@ using System.Linq;
 
 namespace FF1Lib
 {
+	public enum MapLocation
+	{
+		StartingLocation,
+		AirshipLocation,
+		Coneria,
+		Pravoka,
+		Elfland,
+		Melmond,
+		CresentLake,
+		Gaia,
+		Onrac,
+		Lefein,
+		Caravan,
+		ConeriaCastle1,
+		ConeriaCastle2,
+		ElflandCastle,
+		NorthwestCastle,
+		CastleOrdeals1,
+		CastleOrdealsMaze,
+		CastleOrdealsTop,
+		EarthCave1,
+		EarthCave2,
+		EarthCaveVampire,
+		EarthCave4,
+		EarthCaveLich,
+		GurguVolcano1,
+		GurguVolcano2,
+		GurguVolcano3,
+		GurguVolcano4,
+		GurguVolcano5,
+		GurguVolcano6,
+		GurguVolcanoKary,
+		IceCave1,
+		IceCave2,
+		IceCave3,
+		IceCavePitRoom,
+		IceCave5,
+		IceCaveBackExit,
+		IceCaveFloater,
+		Cardia1,
+		Cardia2,
+		BahamutCave1,
+		BahamutCave2,
+		Cardia4,
+		Cardia5,
+		Cardia6,
+		Waterfall,
+		DwarfCave,
+		MatoyasCave,
+		SardasCave,
+		MarshCave1,
+		MarshCave2,
+		MarshCaveBottom,
+		MirageTower1,
+		MirageTower2,
+		MirageTower3,
+		SeaShrine1,
+		SeaShrine2,
+		SeaShrineMermaids,
+		SeaShrine4,
+		SeaShrine5,
+		SeaShrine6,
+		SeaShrine7,
+		SeaShrine8,
+		SeaShrineKraken,
+		SkyPalace1,
+		SkyPalace2,
+		SkyPalace3,
+		SkyPalaceMaze,
+		SkyPalaceTiamat,
+		TempleOfFiends1,
+		TempleOfFiends2,
+		TempleOfFiends3,
+		TempleOfFiendsPhantom,
+		TempleOfFiendsEarth,
+		TempleOfFiendsFire,
+		TempleOfFiendsWater,
+		TempleOfFiendsAir,
+		TempleOfFiendsChaos,
+		TitansTunnelEast,
+		TitansTunnelWest,
+
+	}
     public struct OWTeleportLocation
     {
         public readonly OverworldTeleportIndex TeleportIndex;
@@ -35,28 +118,36 @@ namespace FF1Lib
     }
 	public static class TeleportLocations
 	{
+		public static MapChange GetAccessRequirement(OverworldTeleportIndex owti) 
+			=> owti == OverworldTeleportIndex.MirageTower ? MapChange.Chime : MapChange.None;
+		public static AccessRequirement GetAccessRequirement(Teleporter t) 
+			=> t == Teleporter.SeaShrine1 ? AccessRequirement.Oxyale : 
+				t == Teleporter.TempleOfFiends1 ? AccessRequirement.BlackOrb : 
+				t == Teleporter.EarthCave3 ? AccessRequirement.Rod : 
+				t == Teleporter.SkyPalace1 ? AccessRequirement.Cube : 
+				AccessRequirement.None;
 		public static Dictionary<MapLocation, Coordinate> OverworldCoordinates =>
 			new Dictionary<MapLocation, Coordinate>
 			{
-				{MapLocation.ConeriaTown,new Coordinate(152, 162)},
+				{MapLocation.Coneria,new Coordinate(152, 162)},
 				{MapLocation.Pravoka,new Coordinate(210, 150)},
-				{MapLocation.ElflandTown,new Coordinate(136, 222)},
+				{MapLocation.Elfland,new Coordinate(136, 222)},
 				{MapLocation.Melmond,new Coordinate(81, 160)},
 				{MapLocation.CresentLake,new Coordinate(219, 218)},
 				{MapLocation.Gaia,new Coordinate(221, 28)}, // requires airship
 				{MapLocation.Onrac,new Coordinate(62, 56)},
 				{MapLocation.Lefein,new Coordinate(235, 99)},
-				{MapLocation.ConeriaCastle,new Coordinate(153, 159)},
+				{MapLocation.ConeriaCastle1,new Coordinate(153, 159)},
 				{MapLocation.ElflandCastle,new Coordinate(136, 221)},
 				{MapLocation.NorthwestCastle,new Coordinate(103, 186)},
-				{MapLocation.CastleOrdeals,new Coordinate(130, 45)}, // requires canoe
-				{MapLocation.TempleOfFiends,new Coordinate(130, 123)},
-				{MapLocation.EarthCave,new Coordinate(65, 187)},
-				{MapLocation.GurguVolcano,new Coordinate(188, 205)},
-				{MapLocation.IceCave,new Coordinate(197, 183)},
+				{MapLocation.CastleOrdeals1,new Coordinate(130, 45)}, // requires canoe
+				{MapLocation.TempleOfFiends1,new Coordinate(130, 123)},
+				{MapLocation.EarthCave1,new Coordinate(65, 187)},
+				{MapLocation.GurguVolcano1,new Coordinate(188, 205)},
+				{MapLocation.IceCave1,new Coordinate(197, 183)},
 				{MapLocation.Cardia1,new Coordinate(92, 48)},
 				{MapLocation.Cardia2,new Coordinate(79, 49)}, // requires airship
-				{MapLocation.Cardia3,new Coordinate(96, 51)},
+				{MapLocation.BahamutCave1,new Coordinate(96, 51)},
 				{MapLocation.Cardia4,new Coordinate(93, 58)}, // requires airship
 				{MapLocation.Cardia5,new Coordinate(105, 59)}, // requires airship
 				{MapLocation.Cardia6,new Coordinate(116, 66)}, // requires airship
@@ -64,8 +155,8 @@ namespace FF1Lib
 				{MapLocation.DwarfCave,new Coordinate(100, 155)},
 				{MapLocation.MatoyasCave,new Coordinate(168, 117)},
 				{MapLocation.SardasCave,new Coordinate(30, 190)},
-				{MapLocation.MarshCave,new Coordinate(102, 236)},
-				{MapLocation.MirageTower,new Coordinate(194, 59)}, // requires chime
+				{MapLocation.MarshCave1,new Coordinate(102, 236)},
+				{MapLocation.MirageTower1,new Coordinate(194, 59)}, // requires chime
 				{MapLocation.TitansTunnelEast,new Coordinate(42, 174)},
 				{MapLocation.TitansTunnelWest,new Coordinate(30, 175)}
 			};
