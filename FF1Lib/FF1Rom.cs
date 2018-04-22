@@ -140,7 +140,7 @@ namespace FF1Lib
 
 			if (flags.Treasures || flags.NPCItems || flags.NPCFetchItems)
 			{
-				ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements);
+				ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements, ItemLocations.MapLocationFloorRequirements);
 
 				if (flags.ShardHunt)
 				{

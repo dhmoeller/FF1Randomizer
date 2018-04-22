@@ -158,26 +158,26 @@ namespace FF1Lib
 				MapLocation.IceCave1
 			};
 			var connectedLocations = new List<OverworldTeleportIndex> {
-				OverworldTeleportIndex.ConeriaCastle, OverworldTeleportIndex.ConeriaTown, OverworldTeleportIndex.TempleOfFiends,
+				OverworldTeleportIndex.ConeriaCastle1, OverworldTeleportIndex.Coneria, OverworldTeleportIndex.TempleOfFiends1,
 				OverworldTeleportIndex.MatoyasCave, OverworldTeleportIndex.Pravoka,
-				OverworldTeleportIndex.ElflandCastle, OverworldTeleportIndex.ElflandTown, OverworldTeleportIndex.NorthwestCastle, OverworldTeleportIndex.MarshCave,
-				OverworldTeleportIndex.Melmond, OverworldTeleportIndex.EarthCave, OverworldTeleportIndex.TitansTunnelEast, 
+				OverworldTeleportIndex.ElflandCastle, OverworldTeleportIndex.Elfland, OverworldTeleportIndex.NorthwestCastle, OverworldTeleportIndex.MarshCave1,
+				OverworldTeleportIndex.Melmond, OverworldTeleportIndex.EarthCave1, OverworldTeleportIndex.TitansTunnelEast, 
 				OverworldTeleportIndex.SardasCave, OverworldTeleportIndex.TitansTunnelWest,
-				OverworldTeleportIndex.Cardia1, OverworldTeleportIndex.Cardia3,
-				OverworldTeleportIndex.GurguVolcano, OverworldTeleportIndex.IceCave,
+				OverworldTeleportIndex.Cardia1, OverworldTeleportIndex.BahamutCave1,
+				OverworldTeleportIndex.GurguVolcano1, OverworldTeleportIndex.IceCave1,
 				OverworldTeleportIndex.Onrac
 			};
 			var startingLocations = new List<OverworldTeleportIndex> {
-				OverworldTeleportIndex.ConeriaCastle, OverworldTeleportIndex.TempleOfFiends
+				OverworldTeleportIndex.ConeriaCastle1, OverworldTeleportIndex.TempleOfFiends1
 			};
 			var townStart = 
-				shuffledEntrances.Any(x => x.TeleportIndex == OverworldTeleportIndex.ConeriaTown && townsWithShops.Any(y => x.PlacedTeleport.TeleportDestination == y));
+				shuffledEntrances.Any(x => x.TeleportIndex == OverworldTeleportIndex.Coneria && townsWithShops.Any(y => x.PlacedTeleport.TeleportDestination == y));
 			var starterLocation = 
 				shuffledEntrances.Any(x => startingLocations.Contains(x.TeleportIndex) && starterDestinations.Any(y => x.PlacedTeleport.TeleportDestination == y));
 			var dangerLocationAtConeriaCastle = 
-				shuffledEntrances.Any(x => x.TeleportIndex == OverworldTeleportIndex.ConeriaCastle && invalidBeforeFirstProgressionDestinations.Any(y => x.PlacedTeleport.TeleportDestination == y));
+				shuffledEntrances.Any(x => x.TeleportIndex == OverworldTeleportIndex.ConeriaCastle1 && invalidBeforeFirstProgressionDestinations.Any(y => x.PlacedTeleport.TeleportDestination == y));
 			var dangerLocationAtToF = 
-				shuffledEntrances.Any(x => x.TeleportIndex == OverworldTeleportIndex.TempleOfFiends && invalidBeforeFirstProgressionDestinations.Any(y => x.PlacedTeleport.TeleportDestination == y));
+				shuffledEntrances.Any(x => x.TeleportIndex == OverworldTeleportIndex.TempleOfFiends1 && invalidBeforeFirstProgressionDestinations.Any(y => x.PlacedTeleport.TeleportDestination == y));
 			var dangerLocationAtDwarf = 
 				shuffledEntrances.Any(x => x.TeleportIndex == OverworldTeleportIndex.DwarfCave && invalidBeforeFirstProgressionDestinations.Any(y => x.PlacedTeleport.TeleportDestination == y));
 			var dangerLocationAtMatoya = 

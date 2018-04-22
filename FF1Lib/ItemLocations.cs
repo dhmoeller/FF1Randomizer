@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 
 namespace FF1Lib
@@ -297,7 +298,7 @@ namespace FF1Lib
 		private const MapChange AirshipAndCanoe = MapChange.Airship | MapChange.Canoe;
 		private const MapChange CanalAndShip = MapChange.Canal | MapChange.Ship;
 		private const MapChange ShipAndCanoe = MapChange.Canoe | MapChange.Ship;
-		public static Dictionary<MapLocation, IEnumerable<MapChange>> MapLocationRequirements =
+		public static Dictionary<MapLocation, IEnumerable<MapChange>> MapLocationRequirements =>
 			new Dictionary<MapLocation, IEnumerable<MapChange>>
 		{
 			{MapLocation.StartingLocation, new List<MapChange>{ MapChange.None }},
@@ -320,8 +321,11 @@ namespace FF1Lib
 			{MapLocation.GurguVolcano1, new List<MapChange>{ ShipAndCanoe, MapChange.Airship }},
 			{MapLocation.IceCave1, new List<MapChange>{ MapChange.Bridge | MapChange.Canoe, MapChange.Ship | MapChange.Canoe, MapChange.Airship }},
 			{MapLocation.CastleOrdeals1, new List<MapChange>{ CanalAndShip | MapChange.Canoe, AirshipAndCanoe }},
+			{MapLocation.Cardia1, new List<MapChange>{ MapChange.Airship }},
 			{MapLocation.Cardia2, new List<MapChange>{ MapChange.Airship }},
+			{MapLocation.BahamutCave1, new List<MapChange>{ MapChange.Airship }},
 			{MapLocation.Cardia4, new List<MapChange>{ MapChange.Airship }},
+			{MapLocation.Cardia5, new List<MapChange>{ MapChange.Airship }},
 			{MapLocation.Cardia6, new List<MapChange>{ MapChange.Airship }},
 			{MapLocation.Caravan, new List<MapChange>{ MapChange.Airship }},
 			{MapLocation.Gaia, new List<MapChange>{ MapChange.Airship }},
@@ -331,6 +335,55 @@ namespace FF1Lib
 			{MapLocation.MirageTower1, new List<MapChange>{ MapChange.Chime | MapChange.Airship }},
 			{MapLocation.AirshipLocation, new List<MapChange>{ ShipAndCanoe }}
 		};
+		public static Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> MapLocationFloorRequirements =>
+			new Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>>
+			{
+				{MapLocation.ConeriaCastle2, new Tuple<MapLocation, AccessRequirement>(MapLocation.ConeriaCastle1, AccessRequirement.None)},
+				{MapLocation.MarshCave2, new Tuple<MapLocation, AccessRequirement>(MapLocation.MarshCave1, AccessRequirement.None)},
+				{MapLocation.MarshCaveBottom, new Tuple<MapLocation, AccessRequirement>(MapLocation.MarshCave1, AccessRequirement.None)},
+				{MapLocation.CastleOrdealsMaze, new Tuple<MapLocation, AccessRequirement>(MapLocation.CastleOrdeals1, AccessRequirement.Crown)},
+				{MapLocation.CastleOrdealsTop, new Tuple<MapLocation, AccessRequirement>(MapLocation.CastleOrdealsMaze, AccessRequirement.None)},
+				{MapLocation.EarthCave2, new Tuple<MapLocation, AccessRequirement>(MapLocation.EarthCave1, AccessRequirement.None)},
+				{MapLocation.EarthCaveVampire, new Tuple<MapLocation, AccessRequirement>(MapLocation.EarthCave2, AccessRequirement.None)},
+				{MapLocation.EarthCave4, new Tuple<MapLocation, AccessRequirement>(MapLocation.EarthCaveVampire, AccessRequirement.Rod)},
+				{MapLocation.EarthCaveLich, new Tuple<MapLocation, AccessRequirement>(MapLocation.EarthCave4, AccessRequirement.None)},
+				{MapLocation.GurguVolcano2, new Tuple<MapLocation, AccessRequirement>(MapLocation.GurguVolcano1, AccessRequirement.None)},
+				{MapLocation.GurguVolcano3, new Tuple<MapLocation, AccessRequirement>(MapLocation.GurguVolcano2, AccessRequirement.None)},
+				{MapLocation.GurguVolcano4, new Tuple<MapLocation, AccessRequirement>(MapLocation.GurguVolcano3, AccessRequirement.None)},
+				{MapLocation.GurguVolcano5, new Tuple<MapLocation, AccessRequirement>(MapLocation.GurguVolcano4, AccessRequirement.None)},
+				{MapLocation.GurguVolcanoKary, new Tuple<MapLocation, AccessRequirement>(MapLocation.GurguVolcano5, AccessRequirement.None)},
+				{MapLocation.IceCave2, new Tuple<MapLocation, AccessRequirement>(MapLocation.IceCave1, AccessRequirement.None)},
+				{MapLocation.IceCave3, new Tuple<MapLocation, AccessRequirement>(MapLocation.IceCave2, AccessRequirement.None)},
+				{MapLocation.IceCavePitRoom, new Tuple<MapLocation, AccessRequirement>(MapLocation.IceCave3, AccessRequirement.None)},
+				{MapLocation.IceCave5, new Tuple<MapLocation, AccessRequirement>(MapLocation.IceCavePitRoom, AccessRequirement.None)},
+				{MapLocation.IceCaveBackExit, new Tuple<MapLocation, AccessRequirement>(MapLocation.IceCave5, AccessRequirement.None)},
+				{MapLocation.IceCaveFloater, new Tuple<MapLocation, AccessRequirement>(MapLocation.IceCaveBackExit, AccessRequirement.None)},
+				{MapLocation.BahamutCave2, new Tuple<MapLocation, AccessRequirement>(MapLocation.BahamutCave1, AccessRequirement.None)},
+				{MapLocation.MirageTower2, new Tuple<MapLocation, AccessRequirement>(MapLocation.MirageTower1, AccessRequirement.None)},
+				{MapLocation.MirageTower3, new Tuple<MapLocation, AccessRequirement>(MapLocation.MirageTower2, AccessRequirement.None)},
+				{MapLocation.SkyPalace1, new Tuple<MapLocation, AccessRequirement>(MapLocation.MirageTower3, AccessRequirement.Cube)},
+				{MapLocation.SkyPalace2, new Tuple<MapLocation, AccessRequirement>(MapLocation.SkyPalace1, AccessRequirement.None)},
+				{MapLocation.SkyPalace3, new Tuple<MapLocation, AccessRequirement>(MapLocation.SkyPalace2, AccessRequirement.None)},
+				{MapLocation.SkyPalaceMaze, new Tuple<MapLocation, AccessRequirement>(MapLocation.SkyPalace3, AccessRequirement.None)},
+				{MapLocation.SkyPalaceTiamat, new Tuple<MapLocation, AccessRequirement>(MapLocation.SkyPalaceMaze, AccessRequirement.None)},
+				{MapLocation.SeaShrine1, new Tuple<MapLocation, AccessRequirement>(MapLocation.Onrac, AccessRequirement.Oxyale)},
+				{MapLocation.SeaShrine2, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine1, AccessRequirement.None)},
+				{MapLocation.SeaShrineMermaids, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine2, AccessRequirement.None)},
+				{MapLocation.SeaShrine4, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine1, AccessRequirement.None)},
+				{MapLocation.SeaShrine5, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine4, AccessRequirement.None)},
+				{MapLocation.SeaShrine6, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine5, AccessRequirement.None)},
+				{MapLocation.SeaShrine7, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine6, AccessRequirement.None)},
+				{MapLocation.SeaShrine8, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine7, AccessRequirement.None)},
+				{MapLocation.SeaShrineKraken, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine8, AccessRequirement.None)},
+				{MapLocation.TempleOfFiends2, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.BlackOrb)},
+				{MapLocation.TempleOfFiends3, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends2, AccessRequirement.None)},
+				{MapLocation.TempleOfFiendsPhantom, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends3, AccessRequirement.None)},
+				{MapLocation.TempleOfFiendsEarth, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsPhantom, AccessRequirement.Lute)},
+				{MapLocation.TempleOfFiendsFire, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsEarth, AccessRequirement.None)},
+				{MapLocation.TempleOfFiendsWater, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsFire, AccessRequirement.None)},
+				{MapLocation.TempleOfFiendsAir, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsWater, AccessRequirement.None)},
+				{MapLocation.TempleOfFiendsChaos, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsAir, AccessRequirement.None)},
+			};
 
 		public static Dictionary<MapLocation, RomUtilities.Blob> ShipLocations = new Dictionary<MapLocation, RomUtilities.Blob>
 		{
