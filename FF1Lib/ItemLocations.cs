@@ -6,25 +6,25 @@ namespace FF1Lib
 {
 	public static partial class ItemLocations
 	{
-		public static TreasureChest Coneria1 = new TreasureChest(0x3101, nameof(Coneria1), MapLocation.ConeriaCastle1, Item.IronArmor, AccessRequirement.Key);
-		public static TreasureChest Coneria2 = new TreasureChest(0x3102, nameof(Coneria2), MapLocation.ConeriaCastle1, Item.IronShield, AccessRequirement.Key);
-		public static TreasureChest ConeriaMajor = new TreasureChest(0x3103, nameof(ConeriaMajor), MapLocation.ConeriaCastle1, Item.Tnt, AccessRequirement.Key);
-		public static TreasureChest Coneria4 = new TreasureChest(0x3104, nameof(Coneria4), MapLocation.ConeriaCastle1, Item.IronSword, AccessRequirement.Key);
-		public static TreasureChest Coneria5 = new TreasureChest(0x3105, nameof(Coneria5), MapLocation.ConeriaCastle1, Item.Sabre, AccessRequirement.Key);
-		public static TreasureChest Coneria6 = new TreasureChest(0x3106, nameof(Coneria6), MapLocation.ConeriaCastle1, Item.SilverKnife, AccessRequirement.Key);
-		public static TreasureChest ToFTopLeft1 = new TreasureChest(0x3107, nameof(ToFTopLeft1), MapLocation.TempleOfFiends1, Item.Cabin);
-		public static TreasureChest ToFTopLeft2 = new TreasureChest(0x3108, nameof(ToFTopLeft2), MapLocation.TempleOfFiends1, Item.Heal);
-		public static TreasureChest ToFBottomLeft = new TreasureChest(0x3109, nameof(ToFBottomLeft), MapLocation.TempleOfFiends1, Item.Cap);
-		public static TreasureChest ToFBottomRight = new TreasureChest(0x310A, nameof(ToFBottomRight), MapLocation.TempleOfFiends1, Item.RuneSword, AccessRequirement.Key);
-		public static TreasureChest ToFTopRight1 = new TreasureChest(0x310B, nameof(ToFTopRight1), MapLocation.TempleOfFiends1, Item.WereSword, AccessRequirement.Key);
-		public static TreasureChest ToFTopRight2 = new TreasureChest(0x310C, nameof(ToFTopRight2), MapLocation.TempleOfFiends1, Item.Soft, AccessRequirement.Key);
-		public static TreasureChest Elfland1 = new TreasureChest(0x310D, nameof(Elfland1), MapLocation.ElflandCastle, Item.SilverHammer, AccessRequirement.Key);
-		public static TreasureChest Elfland2 = new TreasureChest(0x310E, nameof(Elfland2), MapLocation.ElflandCastle, Item.Gold400, AccessRequirement.Key);
-		public static TreasureChest Elfland3 = new TreasureChest(0x310F, nameof(Elfland3), MapLocation.ElflandCastle, Item.Gold330, AccessRequirement.Key);
-		public static TreasureChest Elfland4 = new TreasureChest(0x3110, nameof(Elfland4), MapLocation.ElflandCastle, Item.CopperGauntlets, AccessRequirement.Key);
-		public static TreasureChest NorthwestCastle1 = new TreasureChest(0x3111, nameof(NorthwestCastle1), MapLocation.NorthwestCastle, Item.PowerRod, AccessRequirement.Key);
-		public static TreasureChest NorthwestCastle2 = new TreasureChest(0x3112, nameof(NorthwestCastle2), MapLocation.NorthwestCastle, Item.IronGauntlets, AccessRequirement.Key);
-		public static TreasureChest NorthwestCastle3 = new TreasureChest(0x3113, nameof(NorthwestCastle3), MapLocation.NorthwestCastle, Item.Falchon, AccessRequirement.Key);
+		public static TreasureChest Coneria1 = new TreasureChest(0x3101, nameof(Coneria1), MapLocation.ConeriaCastleRoom1, Item.IronArmor);
+		public static TreasureChest Coneria2 = new TreasureChest(0x3102, nameof(Coneria2), MapLocation.ConeriaCastleRoom1, Item.IronShield);
+		public static TreasureChest ConeriaMajor = new TreasureChest(0x3103, nameof(ConeriaMajor), MapLocation.ConeriaCastleRoom1, Item.Tnt);
+		public static TreasureChest Coneria4 = new TreasureChest(0x3104, nameof(Coneria4), MapLocation.ConeriaCastleRoom2, Item.IronSword);
+		public static TreasureChest Coneria5 = new TreasureChest(0x3105, nameof(Coneria5), MapLocation.ConeriaCastleRoom2, Item.Sabre);
+		public static TreasureChest Coneria6 = new TreasureChest(0x3106, nameof(Coneria6), MapLocation.ConeriaCastleRoom2, Item.SilverKnife);
+		public static TreasureChest ToFTopLeft1 = new TreasureChest(0x3107, nameof(ToFTopLeft1), MapLocation.TempleOfFiends1Room1, Item.Cabin);
+		public static TreasureChest ToFTopLeft2 = new TreasureChest(0x3108, nameof(ToFTopLeft2), MapLocation.TempleOfFiends1Room1, Item.Heal);
+		public static TreasureChest ToFBottomLeft = new TreasureChest(0x3109, nameof(ToFBottomLeft), MapLocation.TempleOfFiends1Room3, Item.Cap);
+		public static TreasureChest ToFBottomRight = new TreasureChest(0x310A, nameof(ToFBottomRight), MapLocation.TempleOfFiends1Room4, Item.RuneSword);
+		public static TreasureChest ToFTopRight1 = new TreasureChest(0x310B, nameof(ToFTopRight1), MapLocation.TempleOfFiends1Room2, Item.WereSword);
+		public static TreasureChest ToFTopRight2 = new TreasureChest(0x310C, nameof(ToFTopRight2), MapLocation.TempleOfFiends1Room2, Item.Soft);
+		public static TreasureChest Elfland1 = new TreasureChest(0x310D, nameof(Elfland1), MapLocation.ElflandCastleRoom1, Item.SilverHammer);
+		public static TreasureChest Elfland2 = new TreasureChest(0x310E, nameof(Elfland2), MapLocation.ElflandCastleRoom1, Item.Gold400);
+		public static TreasureChest Elfland3 = new TreasureChest(0x310F, nameof(Elfland3), MapLocation.ElflandCastleRoom1, Item.Gold330);
+		public static TreasureChest Elfland4 = new TreasureChest(0x3110, nameof(Elfland4), MapLocation.ElflandCastleRoom1, Item.CopperGauntlets);
+		public static TreasureChest NorthwestCastle1 = new TreasureChest(0x3111, nameof(NorthwestCastle1), MapLocation.NorthwestCastleRoom2, Item.PowerRod);
+		public static TreasureChest NorthwestCastle2 = new TreasureChest(0x3112, nameof(NorthwestCastle2), MapLocation.NorthwestCastleRoom2, Item.IronGauntlets);
+		public static TreasureChest NorthwestCastle3 = new TreasureChest(0x3113, nameof(NorthwestCastle3), MapLocation.NorthwestCastleRoom2, Item.Falchon);
 		// Marsh Cave has 5 extra empty treasure chests
 		public static TreasureChest MarshCave1 = new TreasureChest(0x3114, nameof(MarshCave1), MapLocation.MarshCaveBottom, Item.Gold295);
 		public static TreasureChest MarshCave2 = new TreasureChest(0x3115, nameof(MarshCave2), MapLocation.MarshCaveBottom, Item.Copper);
@@ -36,19 +36,19 @@ namespace FF1Lib
 		public static TreasureChest MarshCave8 = new TreasureChest(0x311B, nameof(MarshCave8), MapLocation.MarshCave2, Item.LargeKnife);
 		public static TreasureChest MarshCaveMajor = new TreasureChest(0x311C, nameof(MarshCaveMajor), MapLocation.MarshCaveBottom, Item.Crown);
 		public static TreasureChest MarshCave10 = new TreasureChest(0x311D, nameof(MarshCave10), MapLocation.MarshCaveBottom, Item.IronArmor);
-		public static TreasureChest MarshCave11 = new TreasureChest(0x311E, nameof(MarshCave11), MapLocation.MarshCaveBottom, Item.Silver, AccessRequirement.Key);
-		public static TreasureChest MarshCave12 = new TreasureChest(0x311F, nameof(MarshCave12), MapLocation.MarshCaveBottom, Item.SilverKnife, AccessRequirement.Key);
-		public static TreasureChest MarshCave13 = new TreasureChest(0x3120, nameof(MarshCave13), MapLocation.MarshCaveBottom, Item.Gold1020, AccessRequirement.Key);
+		public static TreasureChest MarshCave11 = new TreasureChest(0x311E, nameof(MarshCave11), MapLocation.MarshCaveBottomRoom13, Item.Silver);
+		public static TreasureChest MarshCave12 = new TreasureChest(0x311F, nameof(MarshCave12), MapLocation.MarshCaveBottomRoom14, Item.SilverKnife);
+		public static TreasureChest MarshCave13 = new TreasureChest(0x3120, nameof(MarshCave13), MapLocation.MarshCaveBottomRoom16, Item.Gold1020);
 		public static TreasureChest DwarfCave1 = new TreasureChest(0x3121, nameof(DwarfCave1), MapLocation.DwarfCave, Item.Gold450);
 		public static TreasureChest DwarfCave2 = new TreasureChest(0x3122, nameof(DwarfCave2), MapLocation.DwarfCave, Item.Gold575);
-		public static TreasureChest DwarfCave3 = new TreasureChest(0x3123, nameof(DwarfCave3), MapLocation.DwarfCave, Item.Cabin, AccessRequirement.Key);
-		public static TreasureChest DwarfCave4 = new TreasureChest(0x3124, nameof(DwarfCave4), MapLocation.DwarfCave, Item.IronHelm, AccessRequirement.Key);
-		public static TreasureChest DwarfCave5 = new TreasureChest(0x3125, nameof(DwarfCave5), MapLocation.DwarfCave, Item.WoodenHelm, AccessRequirement.Key);
-		public static TreasureChest DwarfCave6 = new TreasureChest(0x3126, nameof(DwarfCave6), MapLocation.DwarfCave, Item.DragonSword, AccessRequirement.Key);
-		public static TreasureChest DwarfCave7 = new TreasureChest(0x3127, nameof(DwarfCave7), MapLocation.DwarfCave, Item.SilverKnife, AccessRequirement.Key);
-		public static TreasureChest DwarfCave8 = new TreasureChest(0x3128, nameof(DwarfCave8), MapLocation.DwarfCave, Item.SilverArmor, AccessRequirement.Key);
-		public static TreasureChest DwarfCave9 = new TreasureChest(0x3129, nameof(DwarfCave9), MapLocation.DwarfCave, Item.Gold575, AccessRequirement.Key);
-		public static TreasureChest DwarfCave10 = new TreasureChest(0x312A, nameof(DwarfCave10), MapLocation.DwarfCave, Item.House, AccessRequirement.Key);
+		public static TreasureChest DwarfCave3 = new TreasureChest(0x3123, nameof(DwarfCave3), MapLocation.DwarfCaveRoom3, Item.Cabin);
+		public static TreasureChest DwarfCave4 = new TreasureChest(0x3124, nameof(DwarfCave4), MapLocation.DwarfCaveRoom3, Item.IronHelm);
+		public static TreasureChest DwarfCave5 = new TreasureChest(0x3125, nameof(DwarfCave5), MapLocation.DwarfCaveRoom3, Item.WoodenHelm);
+		public static TreasureChest DwarfCave6 = new TreasureChest(0x3126, nameof(DwarfCave6), MapLocation.DwarfCaveRoom3, Item.DragonSword);
+		public static TreasureChest DwarfCave7 = new TreasureChest(0x3127, nameof(DwarfCave7), MapLocation.DwarfCaveRoom3, Item.SilverKnife);
+		public static TreasureChest DwarfCave8 = new TreasureChest(0x3128, nameof(DwarfCave8), MapLocation.DwarfCaveRoom3, Item.SilverArmor);
+		public static TreasureChest DwarfCave9 = new TreasureChest(0x3129, nameof(DwarfCave9), MapLocation.DwarfCaveRoom3, Item.Gold575);
+		public static TreasureChest DwarfCave10 = new TreasureChest(0x312A, nameof(DwarfCave10), MapLocation.DwarfCaveRoom3, Item.House);
 		public static TreasureChest MatoyasCave1 = new TreasureChest(0x312B, nameof(MatoyasCave1), MapLocation.MatoyasCave, Item.Heal);
 		public static TreasureChest MatoyasCave2 = new TreasureChest(0x312C, nameof(MatoyasCave2), MapLocation.MatoyasCave, Item.Pure);
 		public static TreasureChest MatoyasCave3 = new TreasureChest(0x312D, nameof(MatoyasCave3), MapLocation.MatoyasCave, Item.Heal);
@@ -68,14 +68,14 @@ namespace FF1Lib
 		public static TreasureChest EarthCave14 = new TreasureChest(0x313B, nameof(EarthCave14), MapLocation.EarthCaveVampire, Item.Tent);
 		public static TreasureChest EarthCave15 = new TreasureChest(0x313C, nameof(EarthCave15), MapLocation.EarthCaveVampire, Item.Heal);
 		public static TreasureChest EarthCaveMajor = new TreasureChest(0x313D, nameof(EarthCaveMajor), MapLocation.EarthCaveVampire, Item.Ruby);
-		public static TreasureChest EarthCave17 = new TreasureChest(0x313E, nameof(EarthCave17), MapLocation.EarthCave4, Item.Gold1250, AccessRequirement.Rod);
-		public static TreasureChest EarthCave18 = new TreasureChest(0x313F, nameof(EarthCave18), MapLocation.EarthCave4, Item.SilverShield, AccessRequirement.Rod);
-		public static TreasureChest EarthCave19 = new TreasureChest(0x3140, nameof(EarthCave19), MapLocation.EarthCave4, Item.Cabin, AccessRequirement.Rod);
-		public static TreasureChest EarthCave20 = new TreasureChest(0x3141, nameof(EarthCave20), MapLocation.EarthCave4, Item.Gold5450, AccessRequirement.Rod);
-		public static TreasureChest EarthCave21 = new TreasureChest(0x3142, nameof(EarthCave21), MapLocation.EarthCave4, Item.Gold1520, AccessRequirement.Rod);
-		public static TreasureChest EarthCave22 = new TreasureChest(0x3143, nameof(EarthCave22), MapLocation.EarthCave4, Item.WoodenRod, AccessRequirement.Rod);
-		public static TreasureChest EarthCave23 = new TreasureChest(0x3144, nameof(EarthCave23), MapLocation.EarthCave4, Item.Gold3400, AccessRequirement.Rod);
-		public static TreasureChest EarthCave24 = new TreasureChest(0x3145, nameof(EarthCave24), MapLocation.EarthCave4, Item.Gold1455, AccessRequirement.Rod);
+		public static TreasureChest EarthCave17 = new TreasureChest(0x313E, nameof(EarthCave17), MapLocation.EarthCave4, Item.Gold1250);
+		public static TreasureChest EarthCave18 = new TreasureChest(0x313F, nameof(EarthCave18), MapLocation.EarthCave4, Item.SilverShield);
+		public static TreasureChest EarthCave19 = new TreasureChest(0x3140, nameof(EarthCave19), MapLocation.EarthCave4, Item.Cabin);
+		public static TreasureChest EarthCave20 = new TreasureChest(0x3141, nameof(EarthCave20), MapLocation.EarthCave4, Item.Gold5450);
+		public static TreasureChest EarthCave21 = new TreasureChest(0x3142, nameof(EarthCave21), MapLocation.EarthCave4, Item.Gold1520);
+		public static TreasureChest EarthCave22 = new TreasureChest(0x3143, nameof(EarthCave22), MapLocation.EarthCave4, Item.WoodenRod);
+		public static TreasureChest EarthCave23 = new TreasureChest(0x3144, nameof(EarthCave23), MapLocation.EarthCave4, Item.Gold3400);
+		public static TreasureChest EarthCave24 = new TreasureChest(0x3145, nameof(EarthCave24), MapLocation.EarthCave4, Item.Gold1455);
 		public static TreasureChest TitansTunnel1 = new TreasureChest(0x3146, nameof(TitansTunnel1), MapLocation.TitansTunnelWest, Item.SilverHelm);
 		public static TreasureChest TitansTunnel2 = new TreasureChest(0x3147, nameof(TitansTunnel2), MapLocation.TitansTunnelWest, Item.Gold450);
 		public static TreasureChest TitansTunnel3 = new TreasureChest(0x3148, nameof(TitansTunnel3), MapLocation.TitansTunnelWest, Item.Gold620);
@@ -131,15 +131,15 @@ namespace FF1Lib
 		public static TreasureChest IceCave15 = new TreasureChest(0x3179, nameof(IceCave15), MapLocation.IceCave5, Item.SilverGauntlets);
 		public static TreasureChest IceCave16 = new TreasureChest(0x317A, nameof(IceCave16), MapLocation.IceCave5, Item.IceArmor);
 		// Ordeals has 1 extra empty treasure chest
-		public static TreasureChest Ordeals1 = new TreasureChest(0x317B, nameof(Ordeals1), MapLocation.CastleOrdealsTop, Item.ZeusGauntlets, AccessRequirement.Crown);
-		public static TreasureChest Ordeals2 = new TreasureChest(0x317C, nameof(Ordeals2), MapLocation.CastleOrdealsTop, Item.House, AccessRequirement.Crown);
-		public static TreasureChest Ordeals3 = new TreasureChest(0x317D, nameof(Ordeals3), MapLocation.CastleOrdealsTop, Item.Gold1455, AccessRequirement.Crown);
-		public static TreasureChest Ordeals4 = new TreasureChest(0x317E, nameof(Ordeals4), MapLocation.CastleOrdealsTop, Item.Gold7340, AccessRequirement.Crown);
-		public static TreasureChest Ordeals5 = new TreasureChest(0x317F, nameof(Ordeals5), MapLocation.CastleOrdealsTop, Item.Gold, AccessRequirement.Crown);
-		public static TreasureChest Ordeals6 = new TreasureChest(0x3180, nameof(Ordeals6), MapLocation.CastleOrdealsTop, Item.IceSword, AccessRequirement.Crown);
-		public static TreasureChest Ordeals7 = new TreasureChest(0x3181, nameof(Ordeals7), MapLocation.CastleOrdealsTop, Item.IronGauntlets, AccessRequirement.Crown);
-		public static TreasureChest Ordeals8 = new TreasureChest(0x3182, nameof(Ordeals8), MapLocation.CastleOrdealsTop, Item.HealRod, AccessRequirement.Crown);
-		public static TreasureChest OrdealsMajor = new TreasureChest(0x3183, nameof(OrdealsMajor), MapLocation.CastleOrdealsTop, Item.Tail, AccessRequirement.Crown);
+		public static TreasureChest Ordeals1 = new TreasureChest(0x317B, nameof(Ordeals1), MapLocation.CastleOrdealsTop, Item.ZeusGauntlets);
+		public static TreasureChest Ordeals2 = new TreasureChest(0x317C, nameof(Ordeals2), MapLocation.CastleOrdealsTop, Item.House);
+		public static TreasureChest Ordeals3 = new TreasureChest(0x317D, nameof(Ordeals3), MapLocation.CastleOrdealsTop, Item.Gold1455);
+		public static TreasureChest Ordeals4 = new TreasureChest(0x317E, nameof(Ordeals4), MapLocation.CastleOrdealsTop, Item.Gold7340);
+		public static TreasureChest Ordeals5 = new TreasureChest(0x317F, nameof(Ordeals5), MapLocation.CastleOrdealsTop, Item.Gold);
+		public static TreasureChest Ordeals6 = new TreasureChest(0x3180, nameof(Ordeals6), MapLocation.CastleOrdealsTop, Item.IceSword);
+		public static TreasureChest Ordeals7 = new TreasureChest(0x3181, nameof(Ordeals7), MapLocation.CastleOrdealsTop, Item.IronGauntlets);
+		public static TreasureChest Ordeals8 = new TreasureChest(0x3182, nameof(Ordeals8), MapLocation.CastleOrdealsTop, Item.HealRod);
+		public static TreasureChest OrdealsMajor = new TreasureChest(0x3183, nameof(OrdealsMajor), MapLocation.CastleOrdealsTop, Item.Tail);
 		public static TreasureChest Cardia1 = new TreasureChest(0x3184, nameof(Cardia1), MapLocation.Cardia6, Item.Gold1455);
 		public static TreasureChest Cardia2 = new TreasureChest(0x3185, nameof(Cardia2), MapLocation.Cardia6, Item.Gold2000);
 		public static TreasureChest Cardia3 = new TreasureChest(0x3186, nameof(Cardia3), MapLocation.Cardia6, Item.Gold2750);
@@ -157,38 +157,38 @@ namespace FF1Lib
 		public static TreasureChest Unused3 = new TreasureChest(0x3192, nameof(Unused3), 0, Item.SmallKnife, isUnused: true);
 		public static TreasureChest Unused4 = new TreasureChest(0x3193, nameof(Unused4), 0, Item.Cap, isUnused: true);
 		public static TreasureChest Unused5 = new TreasureChest(0x3194, nameof(Unused5), 0, Item.ZeusGauntlets, isUnused: true);
-		public static TreasureChest SeaShrine1 = new TreasureChest(0x3195, nameof(SeaShrine1), MapLocation.SeaShrine7, Item.Ribbon, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine2 = new TreasureChest(0x3196, nameof(SeaShrine2), MapLocation.SeaShrine7, Item.Gold9900, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine3 = new TreasureChest(0x3197, nameof(SeaShrine3), MapLocation.SeaShrine7, Item.Gold7340, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine4 = new TreasureChest(0x3198, nameof(SeaShrine4), MapLocation.SeaShrine7, Item.Gold2750, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine5 = new TreasureChest(0x3199, nameof(SeaShrine5), MapLocation.SeaShrine7, Item.Gold7690, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine6 = new TreasureChest(0x319A, nameof(SeaShrine6), MapLocation.SeaShrine7, Item.Gold8135, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine7 = new TreasureChest(0x319B, nameof(SeaShrine7), MapLocation.SeaShrine7, Item.Gold5450, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine8 = new TreasureChest(0x319C, nameof(SeaShrine8), MapLocation.SeaShrine7, Item.Gold385, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine9 = new TreasureChest(0x319D, nameof(SeaShrine9), MapLocation.SeaShrine7, Item.PowerGauntlets, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine10 = new TreasureChest(0x319E, nameof(SeaShrine10), MapLocation.SeaShrine7, Item.LightAxe, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine11 = new TreasureChest(0x319F, nameof(SeaShrine11), MapLocation.SeaShrine1, Item.Gold9900, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine12 = new TreasureChest(0x31A0, nameof(SeaShrine12), MapLocation.SeaShrine1, Item.Gold2000, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine13 = new TreasureChest(0x31A1, nameof(SeaShrine13), MapLocation.SeaShrine6, Item.Gold450, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine14 = new TreasureChest(0x31A2, nameof(SeaShrine14), MapLocation.SeaShrine6, Item.Gold110, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine15 = new TreasureChest(0x31A3, nameof(SeaShrine15), MapLocation.SeaShrine2, Item.LightAxe, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine16 = new TreasureChest(0x31A4, nameof(SeaShrine16), MapLocation.SeaShrine2, Item.OpalArmor, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrineLocked = new TreasureChest(0x31A5, nameof(SeaShrineLocked), MapLocation.SeaShrine2, Item.Gold20, AccessRequirement.Key | AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine18 = new TreasureChest(0x31A6, nameof(SeaShrine18), MapLocation.SeaShrine2, Item.MageRod, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine19 = new TreasureChest(0x31A7, nameof(SeaShrine19), MapLocation.SeaShrine2, Item.Gold12350, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine20 = new TreasureChest(0x31A8, nameof(SeaShrine20), MapLocation.SeaShrineMermaids, Item.Gold9000, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine21 = new TreasureChest(0x31A9, nameof(SeaShrine21), MapLocation.SeaShrineMermaids, Item.Gold1760, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine22 = new TreasureChest(0x31AA, nameof(SeaShrine22), MapLocation.SeaShrineMermaids, Item.Opal, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine23 = new TreasureChest(0x31AB, nameof(SeaShrine23), MapLocation.SeaShrineMermaids, Item.Gold2750, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine24 = new TreasureChest(0x31AC, nameof(SeaShrine24), MapLocation.SeaShrineMermaids, Item.Gold10000, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine25 = new TreasureChest(0x31AD, nameof(SeaShrine25), MapLocation.SeaShrineMermaids, Item.Gold10, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine26 = new TreasureChest(0x31AE, nameof(SeaShrine26), MapLocation.SeaShrineMermaids, Item.Gold4150, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine27 = new TreasureChest(0x31AF, nameof(SeaShrine27), MapLocation.SeaShrineMermaids, Item.Gold5000, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine28 = new TreasureChest(0x31B0, nameof(SeaShrine28), MapLocation.SeaShrineMermaids, Item.Pure, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine29 = new TreasureChest(0x31B1, nameof(SeaShrine29), MapLocation.SeaShrineMermaids, Item.OpalShield, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine30 = new TreasureChest(0x31B2, nameof(SeaShrine30), MapLocation.SeaShrineMermaids, Item.OpalHelm, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrine31 = new TreasureChest(0x31B3, nameof(SeaShrine31), MapLocation.SeaShrineMermaids, Item.OpalGauntlets, AccessRequirement.Oxyale);
-		public static TreasureChest SeaShrineMajor = new TreasureChest(0x31B4, nameof(SeaShrineMajor), MapLocation.SeaShrineMermaids, Item.Slab, AccessRequirement.Oxyale);
+		public static TreasureChest SeaShrine1 = new TreasureChest(0x3195, nameof(SeaShrine1), MapLocation.SeaShrine7, Item.Ribbon);
+		public static TreasureChest SeaShrine2 = new TreasureChest(0x3196, nameof(SeaShrine2), MapLocation.SeaShrine7, Item.Gold9900);
+		public static TreasureChest SeaShrine3 = new TreasureChest(0x3197, nameof(SeaShrine3), MapLocation.SeaShrine7, Item.Gold7340);
+		public static TreasureChest SeaShrine4 = new TreasureChest(0x3198, nameof(SeaShrine4), MapLocation.SeaShrine7, Item.Gold2750);
+		public static TreasureChest SeaShrine5 = new TreasureChest(0x3199, nameof(SeaShrine5), MapLocation.SeaShrine7, Item.Gold7690);
+		public static TreasureChest SeaShrine6 = new TreasureChest(0x319A, nameof(SeaShrine6), MapLocation.SeaShrine7, Item.Gold8135);
+		public static TreasureChest SeaShrine7 = new TreasureChest(0x319B, nameof(SeaShrine7), MapLocation.SeaShrine7, Item.Gold5450);
+		public static TreasureChest SeaShrine8 = new TreasureChest(0x319C, nameof(SeaShrine8), MapLocation.SeaShrine7, Item.Gold385);
+		public static TreasureChest SeaShrine9 = new TreasureChest(0x319D, nameof(SeaShrine9), MapLocation.SeaShrine7, Item.PowerGauntlets);
+		public static TreasureChest SeaShrine10 = new TreasureChest(0x319E, nameof(SeaShrine10), MapLocation.SeaShrine7, Item.LightAxe);
+		public static TreasureChest SeaShrine11 = new TreasureChest(0x319F, nameof(SeaShrine11), MapLocation.SeaShrine1, Item.Gold9900);
+		public static TreasureChest SeaShrine12 = new TreasureChest(0x31A0, nameof(SeaShrine12), MapLocation.SeaShrine1, Item.Gold2000);
+		public static TreasureChest SeaShrine13 = new TreasureChest(0x31A1, nameof(SeaShrine13), MapLocation.SeaShrine6, Item.Gold450);
+		public static TreasureChest SeaShrine14 = new TreasureChest(0x31A2, nameof(SeaShrine14), MapLocation.SeaShrine6, Item.Gold110);
+		public static TreasureChest SeaShrine15 = new TreasureChest(0x31A3, nameof(SeaShrine15), MapLocation.SeaShrine2, Item.LightAxe);
+		public static TreasureChest SeaShrine16 = new TreasureChest(0x31A4, nameof(SeaShrine16), MapLocation.SeaShrine2, Item.OpalArmor);
+		public static TreasureChest SeaShrineLocked = new TreasureChest(0x31A5, nameof(SeaShrineLocked), MapLocation.SeaShrine2Room2, Item.Gold20);
+		public static TreasureChest SeaShrine18 = new TreasureChest(0x31A6, nameof(SeaShrine18), MapLocation.SeaShrine2, Item.MageRod);
+		public static TreasureChest SeaShrine19 = new TreasureChest(0x31A7, nameof(SeaShrine19), MapLocation.SeaShrine2, Item.Gold12350);
+		public static TreasureChest SeaShrine20 = new TreasureChest(0x31A8, nameof(SeaShrine20), MapLocation.SeaShrineMermaids, Item.Gold9000);
+		public static TreasureChest SeaShrine21 = new TreasureChest(0x31A9, nameof(SeaShrine21), MapLocation.SeaShrineMermaids, Item.Gold1760);
+		public static TreasureChest SeaShrine22 = new TreasureChest(0x31AA, nameof(SeaShrine22), MapLocation.SeaShrineMermaids, Item.Opal);
+		public static TreasureChest SeaShrine23 = new TreasureChest(0x31AB, nameof(SeaShrine23), MapLocation.SeaShrineMermaids, Item.Gold2750);
+		public static TreasureChest SeaShrine24 = new TreasureChest(0x31AC, nameof(SeaShrine24), MapLocation.SeaShrineMermaids, Item.Gold10000);
+		public static TreasureChest SeaShrine25 = new TreasureChest(0x31AD, nameof(SeaShrine25), MapLocation.SeaShrineMermaids, Item.Gold10);
+		public static TreasureChest SeaShrine26 = new TreasureChest(0x31AE, nameof(SeaShrine26), MapLocation.SeaShrineMermaids, Item.Gold4150);
+		public static TreasureChest SeaShrine27 = new TreasureChest(0x31AF, nameof(SeaShrine27), MapLocation.SeaShrineMermaids, Item.Gold5000);
+		public static TreasureChest SeaShrine28 = new TreasureChest(0x31B0, nameof(SeaShrine28), MapLocation.SeaShrineMermaids, Item.Pure);
+		public static TreasureChest SeaShrine29 = new TreasureChest(0x31B1, nameof(SeaShrine29), MapLocation.SeaShrineMermaids, Item.OpalShield);
+		public static TreasureChest SeaShrine30 = new TreasureChest(0x31B2, nameof(SeaShrine30), MapLocation.SeaShrineMermaids, Item.OpalHelm);
+		public static TreasureChest SeaShrine31 = new TreasureChest(0x31B3, nameof(SeaShrine31), MapLocation.SeaShrineMermaids, Item.OpalGauntlets);
+		public static TreasureChest SeaShrineMajor = new TreasureChest(0x31B4, nameof(SeaShrineMajor), MapLocation.SeaShrineMermaids, Item.Slab);
 		public static TreasureChest Waterfall1 = new TreasureChest(0x31B5, nameof(Waterfall1), MapLocation.Waterfall, Item.WizardRod);
 		public static TreasureChest Waterfall2 = new TreasureChest(0x31B6, nameof(Waterfall2), MapLocation.Waterfall, Item.Ribbon);
 		public static TreasureChest Waterfall3 = new TreasureChest(0x31B7, nameof(Waterfall3), MapLocation.Waterfall, Item.Gold13450);
@@ -222,47 +222,47 @@ namespace FF1Lib
 		public static TreasureChest MirageTower16 = new TreasureChest(0x31D3, nameof(MirageTower16), MapLocation.MirageTower2, Item.ThorHammer);
 		public static TreasureChest MirageTower17 = new TreasureChest(0x31D4, nameof(MirageTower17), MapLocation.MirageTower2, Item.Gold12350);
 		public static TreasureChest MirageTower18 = new TreasureChest(0x31D5, nameof(MirageTower18), MapLocation.MirageTower2, Item.Gold13000);
-		public static TreasureChest SkyPalace1 = new TreasureChest(0x31D6, nameof(SkyPalace1), MapLocation.SkyPalace1, Item.Gold9900, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace2 = new TreasureChest(0x31D7, nameof(SkyPalace2), MapLocation.SkyPalace1, Item.Heal, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace3 = new TreasureChest(0x31D8, nameof(SkyPalace3), MapLocation.SkyPalace1, Item.Gold4150, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace4 = new TreasureChest(0x31D9, nameof(SkyPalace4), MapLocation.SkyPalace1, Item.Gold7900, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace5 = new TreasureChest(0x31DA, nameof(SkyPalace5), MapLocation.SkyPalace1, Item.Gold5000, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace6 = new TreasureChest(0x31DB, nameof(SkyPalace6), MapLocation.SkyPalace1, Item.ProRing, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace7 = new TreasureChest(0x31DC, nameof(SkyPalace7), MapLocation.SkyPalace1, Item.Gold6720, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace8 = new TreasureChest(0x31DD, nameof(SkyPalace8), MapLocation.SkyPalace1, Item.HealHelm, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace9 = new TreasureChest(0x31DE, nameof(SkyPalace9), MapLocation.SkyPalace1, Item.Gold180, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace10 = new TreasureChest(0x31DF, nameof(SkyPalace10), MapLocation.SkyPalace1, Item.BaneSword, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace11 = new TreasureChest(0x31E0, nameof(SkyPalace11), MapLocation.SkyPalace2, Item.WhiteShirt, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace12 = new TreasureChest(0x31E1, nameof(SkyPalace12), MapLocation.SkyPalace2, Item.BlackShirt, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace13 = new TreasureChest(0x31E2, nameof(SkyPalace13), MapLocation.SkyPalace2, Item.Ribbon, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace14 = new TreasureChest(0x31E3, nameof(SkyPalace14), MapLocation.SkyPalace2, Item.OpalGauntlets, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace15 = new TreasureChest(0x31E4, nameof(SkyPalace15), MapLocation.SkyPalace2, Item.OpalShield, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace16 = new TreasureChest(0x31E5, nameof(SkyPalace16), MapLocation.SkyPalace2, Item.SilverHelm, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace17 = new TreasureChest(0x31E6, nameof(SkyPalace17), MapLocation.SkyPalace2, Item.House, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace18 = new TreasureChest(0x31E7, nameof(SkyPalace18), MapLocation.SkyPalace2, Item.Gold880, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace19 = new TreasureChest(0x31E8, nameof(SkyPalace19), MapLocation.SkyPalace2, Item.Gold13000, AccessRequirement.Cube);
-		public static TreasureChest SkyPalaceMajor = new TreasureChest(0x31E9, nameof(SkyPalaceMajor), MapLocation.SkyPalace2, Item.Adamant, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace21 = new TreasureChest(0x31EA, nameof(SkyPalace21), MapLocation.SkyPalace3, Item.Gold4150, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace22 = new TreasureChest(0x31EB, nameof(SkyPalace22), MapLocation.SkyPalace3, Item.Soft, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace23 = new TreasureChest(0x31EC, nameof(SkyPalace23), MapLocation.SkyPalace3, Item.Gold3400, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace24 = new TreasureChest(0x31ED, nameof(SkyPalace24), MapLocation.SkyPalace3, Item.Katana, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace25 = new TreasureChest(0x31EE, nameof(SkyPalace25), MapLocation.SkyPalace3, Item.ProCape, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace26 = new TreasureChest(0x31EF, nameof(SkyPalace26), MapLocation.SkyPalace3, Item.Cloth, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace27 = new TreasureChest(0x31F0, nameof(SkyPalace27), MapLocation.SkyPalace3, Item.Gold9500, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace28 = new TreasureChest(0x31F1, nameof(SkyPalace28), MapLocation.SkyPalace3, Item.Soft, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace29 = new TreasureChest(0x31F2, nameof(SkyPalace29), MapLocation.SkyPalace3, Item.Gold6400, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace30 = new TreasureChest(0x31F3, nameof(SkyPalace30), MapLocation.SkyPalace3, Item.Gold8135, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace31 = new TreasureChest(0x31F4, nameof(SkyPalace31), MapLocation.SkyPalace3, Item.Gold9000, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace32 = new TreasureChest(0x31F5, nameof(SkyPalace32), MapLocation.SkyPalace3, Item.Heal, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace33 = new TreasureChest(0x31F6, nameof(SkyPalace33), MapLocation.SkyPalace3, Item.ProRing, AccessRequirement.Cube);
-		public static TreasureChest SkyPalace34 = new TreasureChest(0x31F7, nameof(SkyPalace34), MapLocation.SkyPalace3, Item.Gold5450, AccessRequirement.Cube);
-		public static TreasureChest ToFRMasmune = new TreasureChest(0x31F8, nameof(ToFRMasmune), MapLocation.TempleOfFiendsAir, Item.Masamune, AccessRequirement.Key | AccessRequirement.BlackOrb | AccessRequirement.Lute);
-		public static TreasureChest ToFRevisited2 = new TreasureChest(0x31F9, nameof(ToFRevisited2), MapLocation.TempleOfFiendsFire, Item.Gold26000, AccessRequirement.Key | AccessRequirement.BlackOrb | AccessRequirement.Lute);
-		public static TreasureChest ToFRevisited3 = new TreasureChest(0x31FA, nameof(ToFRevisited3), MapLocation.TempleOfFiendsFire, Item.Katana, AccessRequirement.Key | AccessRequirement.BlackOrb | AccessRequirement.Lute);
-		public static TreasureChest ToFRevisited4 = new TreasureChest(0x31FB, nameof(ToFRevisited4), MapLocation.TempleOfFiendsFire, Item.ProRing, AccessRequirement.Key | AccessRequirement.BlackOrb | AccessRequirement.Lute);
-		public static TreasureChest ToFRevisited5 = new TreasureChest(0x31FC, nameof(ToFRevisited5), MapLocation.TempleOfFiendsFire, Item.ProCape, AccessRequirement.Key | AccessRequirement.BlackOrb | AccessRequirement.Lute);
-		public static TreasureChest ToFRevisited6 = new TreasureChest(0x31FD, nameof(ToFRevisited6), MapLocation.TempleOfFiendsPhantom, Item.Gold45000, AccessRequirement.BlackOrb);
-		public static TreasureChest ToFRevisited7 = new TreasureChest(0x31FE, nameof(ToFRevisited7), MapLocation.TempleOfFiendsPhantom, Item.Gold65000, AccessRequirement.BlackOrb);
+		public static TreasureChest SkyPalace1 = new TreasureChest(0x31D6, nameof(SkyPalace1), MapLocation.SkyPalace1, Item.Gold9900);
+		public static TreasureChest SkyPalace2 = new TreasureChest(0x31D7, nameof(SkyPalace2), MapLocation.SkyPalace1, Item.Heal);
+		public static TreasureChest SkyPalace3 = new TreasureChest(0x31D8, nameof(SkyPalace3), MapLocation.SkyPalace1, Item.Gold4150);
+		public static TreasureChest SkyPalace4 = new TreasureChest(0x31D9, nameof(SkyPalace4), MapLocation.SkyPalace1, Item.Gold7900);
+		public static TreasureChest SkyPalace5 = new TreasureChest(0x31DA, nameof(SkyPalace5), MapLocation.SkyPalace1, Item.Gold5000);
+		public static TreasureChest SkyPalace6 = new TreasureChest(0x31DB, nameof(SkyPalace6), MapLocation.SkyPalace1, Item.ProRing);
+		public static TreasureChest SkyPalace7 = new TreasureChest(0x31DC, nameof(SkyPalace7), MapLocation.SkyPalace1, Item.Gold6720);
+		public static TreasureChest SkyPalace8 = new TreasureChest(0x31DD, nameof(SkyPalace8), MapLocation.SkyPalace1, Item.HealHelm);
+		public static TreasureChest SkyPalace9 = new TreasureChest(0x31DE, nameof(SkyPalace9), MapLocation.SkyPalace1, Item.Gold180);
+		public static TreasureChest SkyPalace10 = new TreasureChest(0x31DF, nameof(SkyPalace10), MapLocation.SkyPalace1, Item.BaneSword);
+		public static TreasureChest SkyPalace11 = new TreasureChest(0x31E0, nameof(SkyPalace11), MapLocation.SkyPalace2, Item.WhiteShirt);
+		public static TreasureChest SkyPalace12 = new TreasureChest(0x31E1, nameof(SkyPalace12), MapLocation.SkyPalace2, Item.BlackShirt);
+		public static TreasureChest SkyPalace13 = new TreasureChest(0x31E2, nameof(SkyPalace13), MapLocation.SkyPalace2, Item.Ribbon);
+		public static TreasureChest SkyPalace14 = new TreasureChest(0x31E3, nameof(SkyPalace14), MapLocation.SkyPalace2, Item.OpalGauntlets);
+		public static TreasureChest SkyPalace15 = new TreasureChest(0x31E4, nameof(SkyPalace15), MapLocation.SkyPalace2, Item.OpalShield);
+		public static TreasureChest SkyPalace16 = new TreasureChest(0x31E5, nameof(SkyPalace16), MapLocation.SkyPalace2, Item.SilverHelm);
+		public static TreasureChest SkyPalace17 = new TreasureChest(0x31E6, nameof(SkyPalace17), MapLocation.SkyPalace2, Item.House);
+		public static TreasureChest SkyPalace18 = new TreasureChest(0x31E7, nameof(SkyPalace18), MapLocation.SkyPalace2, Item.Gold880);
+		public static TreasureChest SkyPalace19 = new TreasureChest(0x31E8, nameof(SkyPalace19), MapLocation.SkyPalace2, Item.Gold13000);
+		public static TreasureChest SkyPalaceMajor = new TreasureChest(0x31E9, nameof(SkyPalaceMajor), MapLocation.SkyPalace2, Item.Adamant);
+		public static TreasureChest SkyPalace21 = new TreasureChest(0x31EA, nameof(SkyPalace21), MapLocation.SkyPalace3, Item.Gold4150);
+		public static TreasureChest SkyPalace22 = new TreasureChest(0x31EB, nameof(SkyPalace22), MapLocation.SkyPalace3, Item.Soft);
+		public static TreasureChest SkyPalace23 = new TreasureChest(0x31EC, nameof(SkyPalace23), MapLocation.SkyPalace3, Item.Gold3400);
+		public static TreasureChest SkyPalace24 = new TreasureChest(0x31ED, nameof(SkyPalace24), MapLocation.SkyPalace3, Item.Katana);
+		public static TreasureChest SkyPalace25 = new TreasureChest(0x31EE, nameof(SkyPalace25), MapLocation.SkyPalace3, Item.ProCape);
+		public static TreasureChest SkyPalace26 = new TreasureChest(0x31EF, nameof(SkyPalace26), MapLocation.SkyPalace3, Item.Cloth);
+		public static TreasureChest SkyPalace27 = new TreasureChest(0x31F0, nameof(SkyPalace27), MapLocation.SkyPalace3, Item.Gold9500);
+		public static TreasureChest SkyPalace28 = new TreasureChest(0x31F1, nameof(SkyPalace28), MapLocation.SkyPalace3, Item.Soft);
+		public static TreasureChest SkyPalace29 = new TreasureChest(0x31F2, nameof(SkyPalace29), MapLocation.SkyPalace3, Item.Gold6400);
+		public static TreasureChest SkyPalace30 = new TreasureChest(0x31F3, nameof(SkyPalace30), MapLocation.SkyPalace3, Item.Gold8135);
+		public static TreasureChest SkyPalace31 = new TreasureChest(0x31F4, nameof(SkyPalace31), MapLocation.SkyPalace3, Item.Gold9000);
+		public static TreasureChest SkyPalace32 = new TreasureChest(0x31F5, nameof(SkyPalace32), MapLocation.SkyPalace3, Item.Heal);
+		public static TreasureChest SkyPalace33 = new TreasureChest(0x31F6, nameof(SkyPalace33), MapLocation.SkyPalace3, Item.ProRing);
+		public static TreasureChest SkyPalace34 = new TreasureChest(0x31F7, nameof(SkyPalace34), MapLocation.SkyPalace3, Item.Gold5450);
+		public static TreasureChest ToFRMasmune = new TreasureChest(0x31F8, nameof(ToFRMasmune), MapLocation.TempleOfFiendsAir, Item.Masamune);
+		public static TreasureChest ToFRevisited2 = new TreasureChest(0x31F9, nameof(ToFRevisited2), MapLocation.TempleOfFiendsFire, Item.Gold26000);
+		public static TreasureChest ToFRevisited3 = new TreasureChest(0x31FA, nameof(ToFRevisited3), MapLocation.TempleOfFiendsFire, Item.Katana);
+		public static TreasureChest ToFRevisited4 = new TreasureChest(0x31FB, nameof(ToFRevisited4), MapLocation.TempleOfFiendsFire, Item.ProRing);
+		public static TreasureChest ToFRevisited5 = new TreasureChest(0x31FC, nameof(ToFRevisited5), MapLocation.TempleOfFiendsFire, Item.ProCape);
+		public static TreasureChest ToFRevisited6 = new TreasureChest(0x31FD, nameof(ToFRevisited6), MapLocation.TempleOfFiendsPhantom, Item.Gold45000);
+		public static TreasureChest ToFRevisited7 = new TreasureChest(0x31FE, nameof(ToFRevisited7), MapLocation.TempleOfFiendsPhantom, Item.Gold65000);
 		public static TreasureChest Unused15 = new TreasureChest(0x31FF, nameof(Unused15), 0, 0, isUnused: true);
 
 		public static MapObject KingConeria = new MapObject(ObjectId.King, MapLocation.ConeriaCastle2, Item.Bridge);
@@ -285,15 +285,15 @@ namespace FF1Lib
 			new ItemShopSlot(0x38461, nameof(CaravanItemShop1), MapLocation.Caravan, Item.Bottle);
 
 		public static StaticItemLocation LichReward =
-			new StaticItemLocation(nameof(LichReward), MapLocation.EarthCaveLich, Item.EarthOrb, AccessRequirement.Rod);
+			new StaticItemLocation(nameof(LichReward), MapLocation.EarthCaveLich, Item.EarthOrb);
 		public static StaticItemLocation KaryReward =
 			new StaticItemLocation(nameof(KaryReward), MapLocation.GurguVolcanoKary, Item.FireOrb);
 		public static StaticItemLocation KrakenReward =
-			new StaticItemLocation(nameof(KrakenReward), MapLocation.SeaShrineKraken, Item.WaterOrb, AccessRequirement.Oxyale);
+			new StaticItemLocation(nameof(KrakenReward), MapLocation.SeaShrineKraken, Item.WaterOrb);
 		public static StaticItemLocation TiamatReward =
-			new StaticItemLocation(nameof(TiamatReward), MapLocation.SkyPalaceTiamat, Item.AirOrb, AccessRequirement.Cube);
+			new StaticItemLocation(nameof(TiamatReward), MapLocation.SkyPalaceTiamat, Item.AirOrb);
 		public static StaticItemLocation ChaosReward =
-			new StaticItemLocation(nameof(ChaosReward), MapLocation.TempleOfFiendsChaos, Item.None, AccessRequirement.Key | AccessRequirement.BlackOrb | AccessRequirement.Lute);
+			new StaticItemLocation(nameof(ChaosReward), MapLocation.TempleOfFiendsChaos, Item.None);
 
 		private const MapChange AirshipAndCanoe = MapChange.Airship | MapChange.Canoe;
 		private const MapChange CanalAndShip = MapChange.Canal | MapChange.Ship;
@@ -338,9 +338,20 @@ namespace FF1Lib
 		public static Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> MapLocationFloorRequirements =>
 			new Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>>
 			{
+				{MapLocation.ConeriaCastleRoom1, new Tuple<MapLocation, AccessRequirement>(MapLocation.ConeriaCastle1, AccessRequirement.Key)},
 				{MapLocation.ConeriaCastle2, new Tuple<MapLocation, AccessRequirement>(MapLocation.ConeriaCastle1, AccessRequirement.None)},
+				{MapLocation.TempleOfFiends1Room1, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.Key)},
+				{MapLocation.TempleOfFiends1Room2, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.Key)},
+				{MapLocation.TempleOfFiends1Room3, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.Key)},
+				{MapLocation.TempleOfFiends1Room4, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.Key)},
+				{MapLocation.DwarfCaveRoom3, new Tuple<MapLocation, AccessRequirement>(MapLocation.DwarfCave, AccessRequirement.Key)},
+				{MapLocation.ElflandCastleRoom1, new Tuple<MapLocation, AccessRequirement>(MapLocation.ElflandCastle, AccessRequirement.Key)},
+				{MapLocation.NorthwestCastleRoom2, new Tuple<MapLocation, AccessRequirement>(MapLocation.NorthwestCastle, AccessRequirement.Key)},
 				{MapLocation.MarshCave2, new Tuple<MapLocation, AccessRequirement>(MapLocation.MarshCave1, AccessRequirement.None)},
 				{MapLocation.MarshCaveBottom, new Tuple<MapLocation, AccessRequirement>(MapLocation.MarshCave1, AccessRequirement.None)},
+				{MapLocation.MarshCaveBottomRoom13, new Tuple<MapLocation, AccessRequirement>(MapLocation.MarshCaveBottom, AccessRequirement.Key)},
+				{MapLocation.MarshCaveBottomRoom14, new Tuple<MapLocation, AccessRequirement>(MapLocation.MarshCaveBottom, AccessRequirement.Key)},
+				{MapLocation.MarshCaveBottomRoom16, new Tuple<MapLocation, AccessRequirement>(MapLocation.MarshCaveBottom, AccessRequirement.Key)},
 				{MapLocation.CastleOrdealsMaze, new Tuple<MapLocation, AccessRequirement>(MapLocation.CastleOrdeals1, AccessRequirement.Crown)},
 				{MapLocation.CastleOrdealsTop, new Tuple<MapLocation, AccessRequirement>(MapLocation.CastleOrdealsMaze, AccessRequirement.None)},
 				{MapLocation.EarthCave2, new Tuple<MapLocation, AccessRequirement>(MapLocation.EarthCave1, AccessRequirement.None)},
@@ -368,6 +379,7 @@ namespace FF1Lib
 				{MapLocation.SkyPalaceTiamat, new Tuple<MapLocation, AccessRequirement>(MapLocation.SkyPalaceMaze, AccessRequirement.None)},
 				{MapLocation.SeaShrine1, new Tuple<MapLocation, AccessRequirement>(MapLocation.Onrac, AccessRequirement.Oxyale)},
 				{MapLocation.SeaShrine2, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine1, AccessRequirement.None)},
+				{MapLocation.SeaShrine2Room2, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine2, AccessRequirement.Key)},
 				{MapLocation.SeaShrineMermaids, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine2, AccessRequirement.None)},
 				{MapLocation.SeaShrine4, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine1, AccessRequirement.None)},
 				{MapLocation.SeaShrine5, new Tuple<MapLocation, AccessRequirement>(MapLocation.SeaShrine4, AccessRequirement.None)},
@@ -379,10 +391,10 @@ namespace FF1Lib
 				{MapLocation.TempleOfFiends3, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends2, AccessRequirement.None)},
 				{MapLocation.TempleOfFiendsPhantom, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends3, AccessRequirement.None)},
 				{MapLocation.TempleOfFiendsEarth, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsPhantom, AccessRequirement.Lute)},
-				{MapLocation.TempleOfFiendsFire, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsEarth, AccessRequirement.None)},
-				{MapLocation.TempleOfFiendsWater, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsFire, AccessRequirement.None)},
-				{MapLocation.TempleOfFiendsAir, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsWater, AccessRequirement.None)},
-				{MapLocation.TempleOfFiendsChaos, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsAir, AccessRequirement.None)},
+				{MapLocation.TempleOfFiendsFire, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsEarth, AccessRequirement.Key)},
+				{MapLocation.TempleOfFiendsWater, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsFire, AccessRequirement.Key)},
+				{MapLocation.TempleOfFiendsAir, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsWater, AccessRequirement.Key)},
+				{MapLocation.TempleOfFiendsChaos, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiendsAir, AccessRequirement.Key)},
 			};
 
 		public static Dictionary<MapLocation, RomUtilities.Blob> ShipLocations = new Dictionary<MapLocation, RomUtilities.Blob>
