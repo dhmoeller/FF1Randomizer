@@ -245,17 +245,21 @@ namespace FF1Lib
 				{
 					var worldMap = mapLocationRequirements
 						.Where(x => x.Value.Any(y => currentMapChanges.HasFlag(y))).Select(x => x.Key);
-					var standardMaps = mapLocationFloorRequirements
-						.Where(x => currentAccess.HasFlag(x.Value.Item2) && worldMap.Contains(x.Value.Item1))
-						.Select(x => x.Key).ToList();
+					var standardMaps =
+						new HashSet<MapLocation>(mapLocationFloorRequirements
+							.Where(x => currentAccess.HasFlag(x.Value.Item2) && 
+									worldMap.Contains(x.Value.Item1)).Select(x => x.Key));
 					var count = 0;
-					while(standardMaps.Count > count) {
+					while (standardMaps.Count > count)
+					{
 						count = standardMaps.Count;
-						standardMaps.AddRange(mapLocationFloorRequirements
-						.Where(x => currentAccess.HasFlag(x.Value.Item2) && standardMaps.Contains(x.Value.Item1))
-						.Select(x => x.Key));
+						foreach (var kvp in mapLocationFloorRequirements)
+						{
+							if (currentAccess.HasFlag(kvp.Value.Item2) && standardMaps.Contains(kvp.Value.Item1))
+								standardMaps.Add(kvp.Key);
+						}
 					}
-					return worldMap.Concat(standardMaps);
+					return worldMap.Concat(standardMaps.ToList());
 				};
 			Func<IEnumerable<IRewardSource>> currentItemLocations =
 				() => treasurePlacements
