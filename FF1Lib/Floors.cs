@@ -25,7 +25,7 @@ namespace FF1Lib
 			var ElflandCastle = Floor.Create(MapLocation.ElflandCastle, MapIndex.ElflandCastle, Tileset.Castle, 16, 31);
 			var NorthwestCastle = Floor.Create(MapLocation.NorthwestCastle, MapIndex.NorthwestCastle, Tileset.Castle, 22, 24);
 			var CastleOrdeals = Floor.Create(MapLocation.CastleOrdeals1, MapIndex.CastleOrdeals1F, Tileset.Castle, 12, 21, OverworldExit.ExitCastleOrdeals);
-			var TempleOfFiends = Floor.Create(MapLocation.TempleOfFiends1, MapIndex.TemploOfFiends, Tileset.SeaShrine, 20, 30);
+			var TempleOfFiends = Floor.Create(MapLocation.TempleOfFiends1, MapIndex.TempleOfFiends, Tileset.SeaShrine, 20, 30);
 
 			// Ice Cave / Cardia / Waterfall Tileset
 			var DwarfCave = Floor.Create(MapLocation.DwarfCave, MapIndex.ConeriaTown, Tileset.IceCardiaWaterfall, 22, 11);

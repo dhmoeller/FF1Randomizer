@@ -19,7 +19,7 @@ namespace FF1Lib
 		ElflandCastle = 9,
 		NorthwestCastle = 10,
 		CastleOrdeals1F = 11,
-		TemploOfFiends = 12,
+		TempleOfFiends = 12,
 		EarthCaveB1 = 13,
 		GurguVolcanoB1 = 14,
 		IceCaveB1 = 15,

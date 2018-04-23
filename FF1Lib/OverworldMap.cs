@@ -78,20 +78,39 @@ namespace FF1Lib
 
 		const int teleportEntranceXOffset = 0x2C00;
 		const int teleportEntranceYOffset = 0x2C20;
-		const int teleportMapIndexOffset = 0x2C40;
+		const int teleportEntranceMapIndexOffset = 0x2C40;
 		const int teleportExitXOffset = 0x2C60;
 		const int teleportExitYOffset = 0x2C70;
+		
 		const int teleportTilesetOffset = 0x2CC0;
+		
+		const int teleportXOffset = 0x2D00;
+		const int teleportYOffset = 0x2D40;
+		const int teleportMapIndexOffset = 0x2D80;
 
-		public void PutOverworldTeleport(OWTeleportLocation teleport)
+		public void PutOverworldTeleport(OverworldTeleportIndex index, Teleport teleport)
 		{
-			_rom[teleportEntranceXOffset + (byte)teleport.TeleportIndex] = teleport.PlacedTeleport.EnterCoordinateX;
-			_rom[teleportEntranceYOffset + (byte)teleport.TeleportIndex] = teleport.PlacedTeleport.EnterCoordinateY;
-			_rom[teleportMapIndexOffset + (byte)teleport.TeleportIndex] = teleport.PlacedTeleport.MapIndex;
-			if (teleport.PlacedTeleport.ExitIndex > 0x0F) return;
-
-			_rom[teleportExitXOffset + teleport.PlacedTeleport.ExitIndex] = teleport.CoordinateX;
-			_rom[teleportExitYOffset + teleport.PlacedTeleport.ExitIndex] = teleport.CoordinateY;
+			if(teleport.Index == MapIndex.Overworld)
+			{
+				_rom[teleportExitXOffset + (byte)teleport.Exit] = teleport.CoordinateX;
+				_rom[teleportExitYOffset + (byte)teleport.Exit] = teleport.CoordinateY;
+				return;
+			}
+			_rom[teleportEntranceXOffset + (byte)index] = teleport.CoordinateX;
+			_rom[teleportEntranceYOffset + (byte)index] = teleport.CoordinateY;
+			_rom[teleportEntranceMapIndexOffset + (byte)index] = (byte)teleport.Index;
+		}
+		public void PutStandardTeleport(Teleporter index, Teleport teleport)
+		{
+			if(teleport.Index == MapIndex.Overworld)
+			{
+				_rom[teleportExitXOffset + (byte)teleport.Exit] = teleport.CoordinateX;
+				_rom[teleportExitYOffset + (byte)teleport.Exit] = teleport.CoordinateY;
+				return;
+			}
+			_rom[teleportEntranceXOffset + (byte)index] = teleport.CoordinateX;
+			_rom[teleportEntranceYOffset + (byte)index] = teleport.CoordinateY;
+			_rom[teleportEntranceMapIndexOffset + (byte)index] = (byte)teleport.Index;
 		}
 		
 		public void ShuffleEntrancesAndFloors(MT19337 rng, bool includeTowns, bool allowUnsafe = false)
@@ -103,19 +122,18 @@ namespace FF1Lib
 			defaultRequirements[MapLocation.SardasCave] = new List<MapChange> { MapChange.Airship };
 			defaultRequirements[MapLocation.TitansTunnelWest] = new List<MapChange> { MapChange.Airship };
 
-			var placedMaps = new List<Tuple<MapLocation, Teleport>> { new Tuple<MapLocation, Teleport>(MapLocation.Coneria, TeleportShuffle.Coneria) };
+			var placedMaps = new List<Tuple<OverworldTeleportIndex, Teleport>> { new Tuple<OverworldTeleportIndex, Teleport>(OverworldTeleportIndex.Coneria, TeleportShuffle.Coneria) };
 			if (!includeTowns)
 			{
-				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Pravoka, TeleportShuffle.Pravoka));
-				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Elfland, TeleportShuffle.Elfland));
-				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Melmond, TeleportShuffle.Melmond));
-				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.CresentLake, TeleportShuffle.CrescentLake));
-				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Onrac, TeleportShuffle.Onrac));
-				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Gaia, TeleportShuffle.Gaia));
+				placedMaps.Add(new Tuple<OverworldTeleportIndex, Teleport>(OverworldTeleportIndex.Pravoka, TeleportShuffle.Pravoka));
+				placedMaps.Add(new Tuple<OverworldTeleportIndex, Teleport>(OverworldTeleportIndex.Elfland, TeleportShuffle.Elfland));
+				placedMaps.Add(new Tuple<OverworldTeleportIndex, Teleport>(OverworldTeleportIndex.Melmond, TeleportShuffle.Melmond));
+				placedMaps.Add(new Tuple<OverworldTeleportIndex, Teleport>(OverworldTeleportIndex.CresentLake, TeleportShuffle.CrescentLake));
+				placedMaps.Add(new Tuple<OverworldTeleportIndex, Teleport>(OverworldTeleportIndex.Onrac, TeleportShuffle.Onrac));
+				placedMaps.Add(new Tuple<OverworldTeleportIndex, Teleport>(OverworldTeleportIndex.Gaia, TeleportShuffle.Gaia));
 			}
 			
-			var maps = TeleportLocations.AllNonTownLocations.Except(TeleportLocations.UnusedLocations).ToList();
-			if (includeTowns) { maps.AddRange(TeleportLocations.AllTownLocations); }
+			var maps = TeleportLocations.AllNonTownLocations.ToList();
 			var mapCount = maps.Count;
 			var destinations = maps.Select(x => x.PlacedTeleport).ToList();
 			destinations.Shuffle(rng);
@@ -139,7 +157,7 @@ namespace FF1Lib
 			Console.WriteLine($"\nShuffled Maps after sanity count: {sanity}");
 			foreach (var map in shuffled.OrderBy(x => x.TeleportIndex))
 			{
-				PutOverworldTeleport(map);
+				PutOverworldTeleport(map.TeleportIndex, map.PlacedTeleport);
 				Console.WriteLine($"{map.SpoilerText}");
 			}
 
@@ -163,7 +181,7 @@ namespace FF1Lib
 			defaultRequirements[MapLocation.SardasCave] = new List<MapChange> { MapChange.Airship };
 			defaultRequirements[MapLocation.TitansTunnelWest] = new List<MapChange> { MapChange.Airship };
 			
-			var maps = TeleportLocations.AllNonTownLocations.Except(TeleportLocations.UnusedLocations).ToList();
+			var maps = TeleportLocations.AllNonTownLocations.ToList();
 			if (includeTowns) { maps.AddRange(TeleportLocations.AllTownLocations); }
 			var mapCount = maps.Count;
 			var destinations = maps.Select(x => x.PlacedTeleport).ToList();
@@ -188,7 +206,7 @@ namespace FF1Lib
 			Console.WriteLine($"\nShuffled Maps after sanity count: {sanity}");
 			foreach (var map in shuffled.OrderBy(x => x.TeleportIndex))
 			{
-				PutOverworldTeleport(map);
+				PutOverworldTeleport(map.TeleportIndex, map.PlacedTeleport);
 				Console.WriteLine($"{map.SpoilerText}");
 			}
 
