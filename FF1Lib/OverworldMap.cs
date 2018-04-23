@@ -93,7 +93,67 @@ namespace FF1Lib
 			_rom[teleportExitXOffset + teleport.PlacedTeleport.ExitIndex] = teleport.CoordinateX;
 			_rom[teleportExitYOffset + teleport.PlacedTeleport.ExitIndex] = teleport.CoordinateY;
 		}
+		
+		public void ShuffleEntrancesAndFloors(MT19337 rng, bool includeTowns, bool allowUnsafe = false)
+		{
+			// Disable the Princess Warp back to Castle Coneria
+			_rom.Put(0x392CA, Blob.FromHex("EAEAEA"));
+			
+			var defaultRequirements = MapLocationRequirements;
+			defaultRequirements[MapLocation.SardasCave] = new List<MapChange> { MapChange.Airship };
+			defaultRequirements[MapLocation.TitansTunnelWest] = new List<MapChange> { MapChange.Airship };
 
+			var placedMaps = new List<Tuple<MapLocation, Teleport>> { new Tuple<MapLocation, Teleport>(MapLocation.Coneria, TeleportShuffle.Coneria) };
+			if (!includeTowns)
+			{
+				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Pravoka, TeleportShuffle.Pravoka));
+				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Elfland, TeleportShuffle.Elfland));
+				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Melmond, TeleportShuffle.Melmond));
+				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.CresentLake, TeleportShuffle.CrescentLake));
+				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Onrac, TeleportShuffle.Onrac));
+				placedMaps.Add(new Tuple<MapLocation, Teleport>(MapLocation.Gaia, TeleportShuffle.Gaia));
+			}
+			
+			var maps = TeleportLocations.AllNonTownLocations.Except(TeleportLocations.UnusedLocations).ToList();
+			if (includeTowns) { maps.AddRange(TeleportLocations.AllTownLocations); }
+			var mapCount = maps.Count;
+			var destinations = maps.Select(x => x.PlacedTeleport).ToList();
+			destinations.Shuffle(rng);
+			
+			Console.WriteLine($"\nStarting Maps");
+			foreach (var map in maps.OrderBy(x => x.TeleportIndex))
+			{
+				Console.WriteLine($"{map.SpoilerText}");
+			}
+			var sanity = 0;
+			List<OWTeleportLocation> shuffled;
+			do
+			{
+				sanity++;
+				var shuffleMaps = maps.ToList();
+				shuffled = new List<OWTeleportLocation>();
+				for (byte i = 0; i < mapCount; i++)
+					shuffled.Add(new OWTeleportLocation(shuffleMaps.SpliceRandom(rng), destinations[i]));
+			} while (!CheckEntranceSanity(shuffled, allowUnsafe));
+
+			Console.WriteLine($"\nShuffled Maps after sanity count: {sanity}");
+			foreach (var map in shuffled.OrderBy(x => x.TeleportIndex))
+			{
+				PutOverworldTeleport(map);
+				Console.WriteLine($"{map.SpoilerText}");
+			}
+
+			var allTeleportLocations = shuffled.Select(x => x.PlacedTeleport.TeleportDestination).Distinct().ToList();
+			var newRequirements = defaultRequirements
+				.ToDictionary(x => !allTeleportLocations.Contains(x.Key) ? x.Key :
+							  shuffled.Single(y => x.Key == ((MapLocation)Enum.Parse(typeof(MapLocation), y.LocationName))).PlacedTeleport.TeleportDestination,
+			x => x.Value);
+			// TODO: adjust map location requirements for MapChange.TitanFed and 
+			// the MapChange.TitanFed | MapChange.Canoe combination to allow ItemPlacement to consider Ruby
+
+			MapLocationRequirements = newRequirements;
+		}
+		
 		public void ShuffleEntrances(MT19337 rng, bool includeTowns, bool allowUnsafe = false)
 		{
 			// Disable the Princess Warp back to Castle Coneria

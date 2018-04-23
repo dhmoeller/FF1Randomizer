@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FF1Lib
@@ -20,12 +21,239 @@ namespace FF1Lib
 		public readonly MapIndex Index;
 		public readonly byte CoordinateX;
 		public readonly byte CoordinateY;
-		public Teleport(MapIndex index, Coordinate coordinates)
+		public readonly OverworldExit Exit;
+		public readonly bool Forked;
+		public Teleport(MapIndex index, Coordinate coordinates, OverworldExit exit = OverworldExit.None, bool isForked = false)
 		{
 			Index = index;
 			CoordinateX = coordinates.X;
 			CoordinateY = coordinates.Y;
+			Exit = exit;
+			Forked = isForked;
 		}
+	}
+	public enum MapLocation
+	{
+		StartingLocation,
+		AirshipLocation,
+		Coneria,
+		Pravoka,
+		Elfland,
+		Melmond,
+		CresentLake,
+		Gaia,
+		Onrac,
+		Lefein,
+		Caravan,
+		ConeriaCastle1,
+		ConeriaCastle2,
+		ConeriaCastleRoom1,
+		ConeriaCastleRoom2,
+		ElflandCastle,
+		ElflandCastleRoom1,
+		NorthwestCastle,
+		NorthwestCastleRoom2,
+		CastleOrdeals1,
+		CastleOrdealsMaze,
+		CastleOrdealsTop,
+		EarthCave1,
+		EarthCave2,
+		EarthCaveVampire,
+		EarthCave4,
+		EarthCaveLich,
+		GurguVolcano1,
+		GurguVolcano2,
+		GurguVolcano3,
+		GurguVolcano4,
+		GurguVolcano5,
+		GurguVolcano6,
+		GurguVolcanoKary,
+		IceCave1,
+		IceCave2,
+		IceCave3,
+		IceCavePitRoom,
+		IceCave5,
+		IceCaveBackExit,
+		IceCaveFloater,
+		Cardia1,
+		Cardia2,
+		BahamutCave1,
+		BahamutCave2,
+		Cardia4,
+		Cardia5,
+		Cardia6,
+		Waterfall,
+		DwarfCave,
+		DwarfCaveRoom3,
+		MatoyasCave,
+		SardasCave,
+		MarshCave1,
+		MarshCave2,
+		MarshCaveBottom,
+		MarshCaveBottomRoom13,
+		MarshCaveBottomRoom14,
+		MarshCaveBottomRoom16,
+		MirageTower1,
+		MirageTower2,
+		MirageTower3,
+		SeaShrine1,
+		SeaShrine2,
+		SeaShrine2Room2,
+		SeaShrineMermaids,
+		SeaShrine4,
+		SeaShrine5,
+		SeaShrine6,
+		SeaShrine7,
+		SeaShrine8,
+		SeaShrineKraken,
+		SkyPalace1,
+		SkyPalace2,
+		SkyPalace3,
+		SkyPalaceMaze,
+		SkyPalaceTiamat,
+		TempleOfFiends1,
+		TempleOfFiends1Room1,
+		TempleOfFiends1Room2,
+		TempleOfFiends1Room3,
+		TempleOfFiends1Room4,
+		TempleOfFiends2,
+		TempleOfFiends3,
+		TempleOfFiendsPhantom,
+		TempleOfFiendsEarth,
+		TempleOfFiendsFire,
+		TempleOfFiendsWater,
+		TempleOfFiendsAir,
+		TempleOfFiendsChaos,
+		TitansTunnelEast,
+		TitansTunnelWest,
+	}
+	public static class TeleportShuffle
+	{
+		public static Teleport Coneria => new Teleport(MapIndex.ConeriaTown, new Coordinate(16, 23));
+		public static Teleport Pravoka => new Teleport(MapIndex.Pravoka, new Coordinate(19, 32));
+		public static Teleport Elfland => new Teleport(MapIndex.Elfland, new Coordinate(41, 22));
+		public static Teleport Melmond => new Teleport(MapIndex.Melmond, new Coordinate(1, 16));
+		public static Teleport CrescentLake => new Teleport(MapIndex.CrescentLake, new Coordinate(11, 23));
+		public static Teleport Gaia => new Teleport(MapIndex.Gaia, new Coordinate(61, 61));
+		public static Teleport Onrac => new Teleport(MapIndex.Onrac, new Coordinate(1, 12));
+		public static Teleport Lefein => new Teleport(MapIndex.Lefein, new Coordinate(19, 23));
+		public static Teleport ConeriaCastle1F => new Teleport(MapIndex.ConeriaCastle1F, new Coordinate(12, 35), OverworldExit.ExitCastleConeria);
+		public static Teleport ElflandCastle => new Teleport(MapIndex.ElflandCastle, new Coordinate(16, 31));
+		public static Teleport NorthwestCastle => new Teleport(MapIndex.NorthwestCastle, new Coordinate(22, 24));
+		public static Teleport CastleOrdeals1F => new Teleport(MapIndex.CastleOrdeals1F, new Coordinate(12, 21), OverworldExit.ExitCastleOrdeals);
+		public static Teleport TemploOfFiends => new Teleport(MapIndex.TemploOfFiends, new Coordinate(20, 30));
+		public static Teleport DwarfCave => new Teleport(MapIndex.DwarfCave, new Coordinate(22, 11));
+		public static Teleport MatoyasCave => new Teleport(MapIndex.MatoyasCave, new Coordinate(15, 11));
+		public static Teleport SardasCave => new Teleport(MapIndex.SardasCave, new Coordinate(18, 13));
+		public static Teleport Cardia1 => new Teleport(MapIndex.Cardia, new Coordinate(30, 18));
+		public static Teleport Cardia2 => new Teleport(MapIndex.Cardia, new Coordinate(12, 15));
+		public static Teleport BahamutCaveB1 => new Teleport(MapIndex.BahamutCaveB1, new Coordinate(2, 2));
+		public static Teleport BahamutCaveB2 => new Teleport(MapIndex.BahamutCaveB2, new Coordinate(23, 45));
+		public static Teleport Cardia4 => new Teleport(MapIndex.Cardia, new Coordinate(19, 36));
+		public static Teleport Cardia5 => new Teleport(MapIndex.Cardia, new Coordinate(43, 29));
+		public static Teleport Cardia6 => new Teleport(MapIndex.Cardia, new Coordinate(58, 55));
+		public static Teleport IceCaveB1A => new Teleport(MapIndex.IceCaveB1, new Coordinate(7, 1));
+		public static Teleport IceCaveB2A => new Teleport(MapIndex.IceCaveB2, new Coordinate(30, 2));
+		public static Teleport IceCaveB3 => new Teleport(MapIndex.IceCaveB3, new Coordinate(3, 2));
+		public static Teleport IceCaveB2B => new Teleport(MapIndex.IceCaveB2, new Coordinate(55, 5), OverworldExit.ExitIceCave);
+		public static Teleport Waterfall => new Teleport(MapIndex.Waterfall, new Coordinate(57, 56));
+		public static Teleport TitansTunnelEast => new Teleport(MapIndex.TitansTunnel, new Coordinate(11, 14), OverworldExit.ExitTitanE);
+		public static Teleport TitansTunnelWest => new Teleport(MapIndex.EarthCaveB1, new Coordinate(23, 24), OverworldExit.ExitTitanW);
+		public static Teleport EarthCaveB1 => new Teleport(MapIndex.EarthCaveB1, new Coordinate(23, 24));
+		public static Teleport EarthCaveB2 => new Teleport(MapIndex.EarthCaveB2, new Coordinate(10, 9));
+		public static Teleport EarthCaveB3 => new Teleport(MapIndex.EarthCaveB3, new Coordinate(27, 45));
+		public static Teleport EarthCaveB4 => new Teleport(MapIndex.EarthCaveB4, new Coordinate(61, 33));
+		public static Teleport EarthCaveLich => new Teleport(MapIndex.EarthCaveB5, new Coordinate(25, 53), OverworldExit.ExitEarthCave);
+		public static Teleport GurguVolcanoB1 => new Teleport(MapIndex.GurguVolcanoB1, new Coordinate(27, 15));
+		public static Teleport GurguVolcanoB2 => new Teleport(MapIndex.GurguVolcanoB2, new Coordinate(30, 32));
+		public static Teleport GurguVolcanoB3A => new Teleport(MapIndex.GurguVolcanoB3, new Coordinate(18, 2));
+		public static Teleport GurguVolcanoB4A => new Teleport(MapIndex.GurguVolcanoB4, new Coordinate(3, 23));
+		public static Teleport GurguVolcanoB3B => new Teleport(MapIndex.GurguVolcanoB3, new Coordinate(46, 23));
+		public static Teleport GurguVolcanoB4B => new Teleport(MapIndex.GurguVolcanoB4, new Coordinate(35, 6));
+		public static Teleport GurguVolcanoKary => new Teleport(MapIndex.GurguVolcanoB5, new Coordinate(32, 31), OverworldExit.ExitGurguVolcano);
+		public static Teleport MarshCaveB1 => new Teleport(MapIndex.MarshCaveB1, new Coordinate(21, 27), isForked: true);
+		public static Teleport MarshCaveB2 => new Teleport(MapIndex.MarshCaveB2, new Coordinate(18, 16));
+		public static Teleport MarshCaveBottom => new Teleport(MapIndex.MarshCaveB3, new Coordinate(5, 6));
+		public static Teleport MirageTower1F => new Teleport(MapIndex.MirageTower1F, new Coordinate(17, 31));
+		public static Teleport MirageTower2F => new Teleport(MapIndex.MirageTower2F, new Coordinate(16, 31));
+		public static Teleport MirageTower3F => new Teleport(MapIndex.MirageTower3F, new Coordinate(8, 1));
+		public static Teleport SeaShrineMermaids => new Teleport(MapIndex.SeaShrineB1, new Coordinate(12, 26));
+		public static Teleport SeaShrineB2A => new Teleport(MapIndex.SeaShrineB2, new Coordinate(45, 8));
+		public static Teleport SeaShrineB3A => new Teleport(MapIndex.SeaShrineB3, new Coordinate(21, 31), isForked:true);
+		public static Teleport SeaShrineB4 => new Teleport(MapIndex.SeaShrineB4, new Coordinate(61, 49));
+		public static Teleport SeaShrineB3B => new Teleport(MapIndex.SeaShrineB3, new Coordinate(47, 39));
+		public static Teleport SeaShrineB2B => new Teleport(MapIndex.SeaShrineB2, new Coordinate(54, 41));
+		public static Teleport SeaShrineB3C => new Teleport(MapIndex.SeaShrineB3, new Coordinate(48, 10));
+		public static Teleport SeaShrineB4B => new Teleport(MapIndex.SeaShrineB4, new Coordinate(45, 20));
+		public static Teleport SeaShrineKraken => new Teleport(MapIndex.SeaShrineB5, new Coordinate(50, 48), OverworldExit.ExitSeaShrine);
+		public static Teleport SkyPalace2F => new Teleport(MapIndex.SkyPalace2F, new Coordinate(19, 4));
+		public static Teleport SkyPalace3F => new Teleport(MapIndex.SkyPalace3F, new Coordinate(24, 23));
+		public static Teleport SkyPalaceMaze => new Teleport(MapIndex.SkyPalace4F, new Coordinate(3, 3));
+		public static Teleport SkyPalaceTiamat => new Teleport(MapIndex.SkyPalace5F, new Coordinate(7, 54), OverworldExit.ExitSkyPalace);
+		public static List<Teleport> FloorTeleports =>
+		 	new List<Teleport>
+			{
+				Coneria, Pravoka, Elfland, Melmond, CrescentLake, Gaia, Onrac, Lefein, 
+				ConeriaCastle1F, ElflandCastle, NorthwestCastle, CastleOrdeals1F, TemploOfFiends, 
+				DwarfCave, MatoyasCave, SardasCave, Cardia1, Cardia2, BahamutCaveB1, BahamutCaveB2, Cardia4, Cardia5, Cardia6, 
+				IceCaveB1A, IceCaveB2A, IceCaveB3, IceCaveB2B, 
+				Waterfall, TitansTunnelEast, TitansTunnelWest, 
+				EarthCaveB1, EarthCaveB2, EarthCaveB3, EarthCaveB4, EarthCaveLich, 
+				GurguVolcanoB1, GurguVolcanoB2, GurguVolcanoB3A, GurguVolcanoB4A, GurguVolcanoB3B, GurguVolcanoB4B, GurguVolcanoKary, 
+				MarshCaveB1, MarshCaveB2, MarshCaveBottom, 
+				MirageTower1F, MirageTower2F, MirageTower3F, 
+				SeaShrineMermaids, SeaShrineB2A, SeaShrineB3A, SeaShrineB4, SeaShrineB3B, SeaShrineB2B, SeaShrineB3C, SeaShrineB4B, SeaShrineKraken, 
+				SkyPalace2F, SkyPalace3F, SkyPalaceMaze, SkyPalaceTiamat
+			};
+		public static List<Teleport> ForkedFloorTeleports =>
+			FloorTeleports.Where(x => x.Forked).ToList();
+		public static List<Teleport> ExitFloorTeleports =>
+			FloorTeleports.Where(x => x.Exit != OverworldExit.None).ToList();
+		public static List<Teleport> EndFloors =>
+			new List<Teleport>
+			{
+				Coneria, Pravoka, Elfland, Melmond, CrescentLake, Gaia, Lefein, 
+				ConeriaCastle1F, ElflandCastle, NorthwestCastle, CastleOrdeals1F, TemploOfFiends, 
+				DwarfCave, MatoyasCave, SardasCave, Cardia1, Cardia2, BahamutCaveB2, Cardia4, Cardia5, Cardia6,
+				IceCaveB2B, Waterfall, TitansTunnelEast, TitansTunnelWest, EarthCaveLich, GurguVolcanoKary,
+				MarshCaveB2, MarshCaveBottom, SeaShrineMermaids, SeaShrineKraken, SkyPalaceTiamat
+			};
+		public static Dictionary<MapLocation, Coordinate> OverworldCoordinates =>
+			new Dictionary<MapLocation, Coordinate>
+			{
+				{MapLocation.Coneria,new Coordinate(152, 162)},
+				{MapLocation.Pravoka,new Coordinate(210, 150)},
+				{MapLocation.Elfland,new Coordinate(136, 222)},
+				{MapLocation.Melmond,new Coordinate(81, 160)},
+				{MapLocation.CresentLake,new Coordinate(219, 218)},
+				{MapLocation.Gaia,new Coordinate(221, 28)}, // requires airship
+				{MapLocation.Onrac,new Coordinate(62, 56)},
+				{MapLocation.Lefein,new Coordinate(235, 99)},
+				{MapLocation.ConeriaCastle1,new Coordinate(153, 159)},
+				{MapLocation.ElflandCastle,new Coordinate(136, 221)},
+				{MapLocation.NorthwestCastle,new Coordinate(103, 186)},
+				{MapLocation.CastleOrdeals1,new Coordinate(130, 45)}, // requires canoe
+				{MapLocation.TempleOfFiends1,new Coordinate(130, 123)},
+				{MapLocation.EarthCave1,new Coordinate(65, 187)},
+				{MapLocation.GurguVolcano1,new Coordinate(188, 205)},
+				{MapLocation.IceCave1,new Coordinate(197, 183)},
+				{MapLocation.Cardia1,new Coordinate(92, 48)},
+				{MapLocation.Cardia2,new Coordinate(79, 49)}, // requires airship
+				{MapLocation.BahamutCave1,new Coordinate(96, 51)},
+				{MapLocation.Cardia4,new Coordinate(93, 58)}, // requires airship
+				{MapLocation.Cardia5,new Coordinate(105, 59)}, // requires airship
+				{MapLocation.Cardia6,new Coordinate(116, 66)}, // requires airship
+				{MapLocation.Waterfall,new Coordinate(54, 29)}, // requires canoe
+				{MapLocation.DwarfCave,new Coordinate(100, 155)},
+				{MapLocation.MatoyasCave,new Coordinate(168, 117)},
+				{MapLocation.SardasCave,new Coordinate(30, 190)},
+				{MapLocation.MarshCave1,new Coordinate(102, 236)},
+				{MapLocation.MirageTower1,new Coordinate(194, 59)}, // requires chime
+				{MapLocation.TitansTunnelEast,new Coordinate(42, 174)},
+				{MapLocation.TitansTunnelWest,new Coordinate(30, 175)}
+			};
+		public static Teleport GetExitTeleport(MapLocation mapLocation) 
+			=> new Teleport(MapIndex.Overworld, OverworldCoordinates[mapLocation]);
 	}
     public struct EntranceTeleport
     {

@@ -68,6 +68,7 @@ namespace FF1Lib
 		TempleOfFiendsAir = 58,
 		TempleOfFiendsChaos = 59,
 		TitansTunnel = 60,
+		Overworld = 255,
 	}
 
 	public enum Tileset : byte
@@ -168,6 +169,7 @@ namespace FF1Lib
 		ExitUnused5 = 13,
 		ExitUnused6 = 14,
 		ExitUnused7 = 15,
+		None = 255
 	}
 
 	// Dead end with no point of egress beyond a possible WARP back to where you entered.
