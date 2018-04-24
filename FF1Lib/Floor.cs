@@ -149,6 +149,7 @@ namespace FF1Lib
 		CastleOrdeals13 = 61,
 		ConeriaCastle = 62,
 		RescuePrincess = 63,
+		Overworld = 255
 	}
 
 	public enum OverworldExit : byte

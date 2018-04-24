@@ -224,11 +224,12 @@ namespace FF1Lib
 		public bool CheckEntranceSanity(IList<OWTeleportLocation> shuffledEntrances, bool allowUnsafe = false) {
 			var starterDestinations = new List<MapLocation> {
 				MapLocation.TempleOfFiends1, MapLocation.Cardia6, MapLocation.Cardia4,
-				MapLocation.Cardia2, MapLocation.MatoyasCave, MapLocation.DwarfCave
+				MapLocation.Cardia2, MapLocation.MatoyasCave, MapLocation.DwarfCave,
+				MapLocation.SeaShrineMermaids
 			};
 			var townsWithShops = new List<MapLocation> {
-				MapLocation.Coneria, MapLocation.Pravoka, MapLocation.Elfland, 
-				MapLocation.CresentLake, MapLocation.Gaia
+				MapLocation.Coneria
+				//, MapLocation.Pravoka, MapLocation.Elfland, MapLocation.CresentLake, MapLocation.Gaia
 			};
 			var invalidBeforeFirstProgressionDestinations = new List<MapLocation> {
 				MapLocation.EarthCave1, MapLocation.GurguVolcano1, MapLocation.Waterfall,
@@ -260,12 +261,12 @@ namespace FF1Lib
 				shuffledEntrances.Any(x => x.TeleportIndex == OverworldTeleportIndex.DwarfCave && invalidBeforeFirstProgressionDestinations.Any(y => x.PlacedTeleport.TeleportDestination == y));
 			var dangerLocationAtMatoya = 
 				shuffledEntrances.Any(x => x.TeleportIndex == OverworldTeleportIndex.MatoyasCave && invalidBeforeFirstProgressionDestinations.Any(y => x.PlacedTeleport.TeleportDestination == y));
-			var titansConnections = 
+			var titansConnections = true || (
 				shuffledEntrances.Any(x => x.PlacedTeleport.TeleportDestination == MapLocation.TitansTunnelEast && connectedLocations.Any(y => x.TeleportIndex == y)) && 
-				shuffledEntrances.Any(x => x.PlacedTeleport.TeleportDestination == MapLocation.TitansTunnelWest && connectedLocations.Any(y => x.TeleportIndex == y));
+				shuffledEntrances.Any(x => x.PlacedTeleport.TeleportDestination == MapLocation.TitansTunnelWest && connectedLocations.Any(y => x.TeleportIndex == y)));
 			var titanDirection =
-				shuffledEntrances.First(x => x.PlacedTeleport.TeleportDestination == MapLocation.TitansTunnelWest).CoordinateX <=
-				shuffledEntrances.First(x => x.PlacedTeleport.TeleportDestination == MapLocation.TitansTunnelEast).CoordinateX;
+				shuffledEntrances.FirstOrDefault(x => x.PlacedTeleport.TeleportDestination == MapLocation.TitansTunnelWest).CoordinateX <=
+				shuffledEntrances.FirstOrDefault(x => x.PlacedTeleport.TeleportDestination == MapLocation.TitansTunnelEast).CoordinateX;
 			var dangerDanger = dangerLocationAtConeriaCastle || dangerLocationAtToF || dangerLocationAtDwarf || dangerLocationAtMatoya;
 				
 			return townStart && starterLocation && titansConnections && titanDirection && (allowUnsafe || !dangerDanger);
