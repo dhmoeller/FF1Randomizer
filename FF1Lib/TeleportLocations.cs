@@ -10,12 +10,12 @@ namespace FF1Lib
         public readonly byte CoordinateX;
         public readonly byte CoordinateY;
         public readonly string LocationName;
-        public readonly Teleport PlacedTeleport;
+        public readonly TeleportDestination PlacedTeleport;
         public string SpoilerText =>
         $"{LocationName}{string.Join("", Enumerable.Repeat(" ", Math.Max(1, 30 - LocationName.Length)).ToList())}" +
         $"\t{PlacedTeleport.SpoilerText}";
         public OWTeleportLocation(OverworldTeleportIndex teleportIndex, byte coordinateX, byte coordinateY,
-                                  Teleport placedLocation)
+                                  TeleportDestination placedLocation)
         {
             TeleportIndex = teleportIndex;
             CoordinateX = coordinateX;
@@ -24,7 +24,7 @@ namespace FF1Lib
 			LocationName = Enum.GetName(typeof(OverworldTeleportIndex), TeleportIndex);
         }
         public OWTeleportLocation(OWTeleportLocation copyFromTeleportLocation,
-                                  Teleport newPlacement)
+                                  TeleportDestination newPlacement)
         {
             TeleportIndex = copyFromTeleportLocation.TeleportIndex;
             CoordinateX = copyFromTeleportLocation.CoordinateX;
