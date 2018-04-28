@@ -153,7 +153,11 @@ namespace FF1Lib
 			var mapCount = maps.Count;
 			var destinations = TeleportShuffle.FreePlacementFloors.Where(x => !placedDestinations.Contains(x.Destination)).ToList();
 			destinations.Shuffle(rng);
-			while (destinations.Last().Teleports.Any()) { destinations.Insert(0, destinations.SpliceRandom(rng)); }
+			while (destinations.Last().Teleports.Any())
+			{
+				destinations.Insert(0, destinations.Last());
+				destinations.RemoveAt(destinations.Count - 1);
+			}
 			destinations = TeleportShuffle.ForcedTopFloors.Where(x => !placedDestinations.Contains(x.Destination)).Concat(destinations).ToList();
 			
 			
