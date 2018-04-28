@@ -6,6 +6,10 @@ using RomUtilities;
 
 namespace FF1Lib
 {
+	public class InsaneException : Exception
+	{
+
+	}
 	public static class ItemPlacement
 	{
 		public static List<IRewardSource> PlaceSaneItems(MT19337 rng,
@@ -63,7 +67,7 @@ namespace FF1Lib
 			do
 			{
 				sanityCounter++;
-				if (sanityCounter > 10000) throw new InvalidOperationException("Invalid flag set");
+				if (sanityCounter > 100) throw new InsaneException();
 				// 1. (Re)Initialize lists inside of loop
 				placedItems = forcedItems.ToList();
 				var incentives = incentivePool.ToList();

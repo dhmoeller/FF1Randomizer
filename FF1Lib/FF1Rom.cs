@@ -118,35 +118,49 @@ namespace FF1Lib
 				ShuffleItemMagic(rng);
 			}
 
-			if (flags.Entrances && flags.Treasures && flags.NPCItems)
+			do
 			{
-				overworldMap.ShuffleEntrancesAndFloors(rng, flags.Towns);
-			} 
-			
-			else if (flags.Floors)
-			{ 
-				ShuffleFloors(rng);
-			}
 
-			var incentivesData = new IncentiveData(rng, flags, overworldMap.MapLocationRequirements);
-			
-			if (flags.Shops)
-			{
-				var excludeItemsFromRandomShops = flags.Treasures
-					? incentivesData.ForcedItemPlacements.Select(x => x.Item).Concat(incentivesData.IncentiveItems).ToList()
-					: new List<Item>();
-				shopItemLocation = ShuffleShops(rng, flags.EnemyStatusAttacks, flags.RandomWares, excludeItemsFromRandomShops);
-			}
-
-			if (flags.Treasures || flags.NPCItems || flags.NPCFetchItems)
-			{
-				ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements);
-
-				if (flags.ShardHunt)
+				try
 				{
-					EnableShardHunt(rng, maps);
+
+					if (flags.Entrances && flags.Treasures && flags.NPCItems)
+					{
+						overworldMap.ShuffleEntrancesAndFloors(rng, flags.Towns);
+					}
+
+					else if (flags.Floors)
+					{
+						ShuffleFloors(rng);
+					}
+
+					var incentivesData = new IncentiveData(rng, flags, overworldMap.MapLocationRequirements);
+
+					if (flags.Shops)
+					{
+						var excludeItemsFromRandomShops = flags.Treasures
+							? incentivesData.ForcedItemPlacements.Select(x => x.Item).Concat(incentivesData.IncentiveItems).ToList()
+							: new List<Item>();
+						shopItemLocation = ShuffleShops(rng, flags.EnemyStatusAttacks, flags.RandomWares, excludeItemsFromRandomShops);
+					}
+
+					if (flags.Treasures || flags.NPCItems || flags.NPCFetchItems)
+					{
+						ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements);
+
+						if (flags.ShardHunt)
+						{
+							EnableShardHunt(rng, maps);
+						}
+					}
+				}
+				catch (InsaneException)
+				{
+					Console.WriteLine("Insane seed. Retrying");
+					continue;
 				}
 			}
+			while (false);
 
 			if (flags.MagicShops)
 			{
