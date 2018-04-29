@@ -16,6 +16,11 @@ namespace FF1Lib
 	public class OverworldMap
 	{
 		private readonly FF1Rom _rom;
+		const int MapPaletteOffset = 0x2000;
+		const int MapPaletteSize = 48;
+		const int MapCount = 64;
+		private Dictionary<Palette, Blob> FloorPalettes;
+
 		public OverworldMap(FF1Rom rom, IMapEditFlags flags)
 		{
 			_rom = rom;
@@ -83,6 +88,7 @@ namespace FF1Lib
 			
 			MapLocationRequirements = mapLocationRequirements;
 			FloorLocationRequirements = floorLocationRequirements;
+			FloorPalettes = GeneratePalettes(_rom.Get(MapPaletteOffset, MapCount * MapPaletteSize).Chunk(MapPaletteSize));
 		}
 
 		const int teleportEntranceXOffset = 0x2C00;
@@ -97,17 +103,67 @@ namespace FF1Lib
 		const int teleportYOffset = 0x2D40;
 		const int teleportMapIndexOffset = 0x2D80;
 
+		private Dictionary<Palette, Blob> GeneratePalettes(List<Blob> vanillaPalettes)
+		{
+			Dictionary<Palette, Blob> palettes = new Dictionary<Palette, Blob>();
+			palettes.Add(Palette.Town,			vanillaPalettes[(int)MapIndex.ConeriaTown]);
+			palettes.Add(Palette.Castle,		vanillaPalettes[(int)MapIndex.ConeriaCastle1F]);
+			palettes.Add(Palette.Greyscale,		vanillaPalettes[(int)MapIndex.TempleOfFiends]);
+			palettes.Add(Palette.Orange,		vanillaPalettes[(int)MapIndex.EarthCaveB1]);
+			palettes.Add(Palette.DarkOrange,	vanillaPalettes[(int)MapIndex.EarthCaveB4]);
+			palettes.Add(Palette.PaleRed,		vanillaPalettes[(int)MapIndex.GurguVolcanoB1]);
+			palettes.Add(Palette.Red,			vanillaPalettes[(int)MapIndex.GurguVolcanoB4]);
+			palettes.Add(Palette.PaleBlue,		vanillaPalettes[(int)MapIndex.IceCaveB1]);
+			palettes.Add(Palette.Teal,			vanillaPalettes[(int)MapIndex.Cardia]);
+			palettes.Add(Palette.DarkTeal,		vanillaPalettes[(int)MapIndex.Waterfall]);
+			palettes.Add(Palette.Purple,		vanillaPalettes[(int)MapIndex.MatoyasCave]);
+			palettes.Add(Palette.Yellow,		vanillaPalettes[(int)MapIndex.SardasCave]);
+			palettes.Add(Palette.PaleGreen,		vanillaPalettes[(int)MapIndex.MarshCaveB1]);
+			palettes.Add(Palette.Green,			vanillaPalettes[(int)MapIndex.MarshCaveB3]);
+			palettes.Add(Palette.Blue,			vanillaPalettes[(int)MapIndex.SeaShrineB5]);
+			palettes.Add(Palette.LightBlue,		vanillaPalettes[(int)MapIndex.SeaShrineB1]);
+			palettes.Add(Palette.DarkBlue,		vanillaPalettes[(int)MapIndex.TitansTunnel]);
+			palettes.Add(Palette.Bluescale,		vanillaPalettes[(int)MapIndex.SkyPalace1F]);
+			return palettes;
+		}
+
+		public void PutPalette(OverworldTeleportIndex source, TeleportDestination destination)
+		{
+			var palette = OverworldToPalette[source];
+
+			if (destination.Index <= MapIndex.Lefein)
+			{
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 1,  FloorPalettes[palette].SubBlob(9, 2));
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 6,  FloorPalettes[palette].SubBlob(9, 1));
+			}
+			else if (destination.Index <  MapIndex.EarthCaveB1)
+			{
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 8,  FloorPalettes[palette].SubBlob(8, 8));
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 40, FloorPalettes[palette].SubBlob(40, 8));
+			}
+			else
+			{
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize,      FloorPalettes[palette].SubBlob(0, 16));
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 32, FloorPalettes[palette].SubBlob(32, 16));
+			}
+		}
+
 		public void PutOverworldTeleport(OverworldTeleportIndex index, TeleportDestination teleport)
 		{
 			_rom[teleportEntranceXOffset + (byte)index] = teleport.CoordinateX;
 			_rom[teleportEntranceYOffset + (byte)index] = teleport.CoordinateY;
 			_rom[teleportEntranceMapIndexOffset + (byte)index] = (byte)teleport.Index;
+
+			PutPalette(index, teleport);
 		}
-		public void PutStandardTeleport(TeleportIndex index, TeleportDestination teleport)
+
+		public void PutStandardTeleport(TeleportIndex index, TeleportDestination teleport, OverworldTeleportIndex overworldEntryPoint)
 		{
 			_rom[teleportXOffset + (byte)index] = teleport.CoordinateX;
 			_rom[teleportYOffset + (byte)index] = teleport.CoordinateY;
 			_rom[teleportMapIndexOffset + (byte)index] = (byte)teleport.Index;
+
+			PutPalette(overworldEntryPoint, teleport);
 		}
 		
 		public void ShuffleEntrancesAndFloors(MT19337 rng, IFloorShuffleFlags flags)
@@ -196,6 +252,7 @@ namespace FF1Lib
 			} while (!CheckEntranceSanity(shuffled, flags.AllowStartAreaDanager));
 
 			Console.WriteLine($"\nShuffled Maps after sanity count: {sanity}");
+
 			foreach (var map in shuffled.OrderBy(x => x.Key))
 			{
 				PutOverworldTeleport(map.Key, map.Value);
@@ -203,15 +260,16 @@ namespace FF1Lib
 				name += string.Join("", Enumerable.Repeat(" ", Math.Max(1, 30 - name.Length)).ToList());
 				Console.WriteLine($"{name}{map.Value.SpoilerText}");
 				var teleports = map.Value.Teleports.ToList();
-				while(teleports.Any())
+
+				while (teleports.Any())
 				{
 					var teleport = teleports.SpliceRandom(rng);
 					var innerMap = shuffledFloors[teleport];
 					teleports.AddRange(innerMap.Teleports);
-					PutStandardTeleport(teleport, innerMap);
+					PutStandardTeleport(teleport, innerMap, map.Key);
 					var innerName = Enum.GetName(typeof(TeleportIndex), teleport);
 					innerName += string.Join("", Enumerable.Repeat(" ", Math.Max(1, 30 - innerName.Length)).ToList());
-					Console.WriteLine($"\t{innerName}{innerMap.SpoilerText}");
+					Console.WriteLine($"\t{innerName}{innerMap.SpoilerText.Trim()} ({Enum.GetName(typeof(Palette), OverworldToPalette[map.Key])} tint)");
 				}
 			}
 			foreach (var exit in shuffledExits)
@@ -400,42 +458,65 @@ namespace FF1Lib
 
 		public List<List<MapEdit>> MapEditsToApply = new List<List<MapEdit>>();
 
-		public static Dictionary<OverworldTeleportIndex, MapIndex> PaletteIndeces = 
-			new Dictionary<OverworldTeleportIndex, MapIndex>
+		public static Dictionary<OverworldTeleportIndex, Palette> OverworldToPalette =
+			new Dictionary<OverworldTeleportIndex, Palette>
 			{
-				{OverworldTeleportIndex.Coneria, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.Pravoka, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.Elfland, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.Melmond, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.CrescentLake, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.Gaia, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.Onrac, MapIndex.SeaShrineB1},
-				{OverworldTeleportIndex.Lefein, MapIndex.SkyPalace2F},
-				{OverworldTeleportIndex.ConeriaCastle1, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.ElflandCastle, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.NorthwestCastle, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.CastleOrdeals1, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.TempleOfFiends1, MapIndex.TempleOfFiends},
-				{OverworldTeleportIndex.DwarfCave, MapIndex.DwarfCave},
-				{OverworldTeleportIndex.MatoyasCave, MapIndex.MatoyasCave},
-				{OverworldTeleportIndex.SardasCave, MapIndex.SardasCave},
-				{OverworldTeleportIndex.MarshCave1, MapIndex.MarshCaveB1},
-				{OverworldTeleportIndex.EarthCave1, MapIndex.EarthCaveB1},
-				{OverworldTeleportIndex.GurguVolcano1 , MapIndex.GurguVolcanoB1},
-				{OverworldTeleportIndex.IceCave1, MapIndex.IceCaveB1},
-				{OverworldTeleportIndex.Cardia1, MapIndex.Cardia},
-				{OverworldTeleportIndex.Cardia2, MapIndex.Cardia},
-				{OverworldTeleportIndex.Cardia4, MapIndex.Cardia},
-				{OverworldTeleportIndex.Cardia5, MapIndex.Cardia},
-				{OverworldTeleportIndex.Cardia6, MapIndex.Cardia},
-				{OverworldTeleportIndex.BahamutCave1, MapIndex.BahamutCaveB1},
-				{OverworldTeleportIndex.Waterfall, MapIndex.Waterfall},
-				{OverworldTeleportIndex.MirageTower1, MapIndex.MirageTower1F},
-				{OverworldTeleportIndex.TitansTunnelEast, MapIndex.TitansTunnel},
-				{OverworldTeleportIndex.TitansTunnelWest, MapIndex.TitansTunnel},
-				{OverworldTeleportIndex.Unused1, MapIndex.ConeriaTown},
-				{OverworldTeleportIndex.Unused2, MapIndex.ConeriaTown},
+				{OverworldTeleportIndex.Coneria,            Palette.Bluescale},
+				{OverworldTeleportIndex.Pravoka,            Palette.Bluescale},
+				{OverworldTeleportIndex.Elfland,            Palette.Green},
+				{OverworldTeleportIndex.Melmond,            Palette.Orange},
+				{OverworldTeleportIndex.CrescentLake,       Palette.Bluescale},
+				{OverworldTeleportIndex.Gaia,               Palette.Yellow},
+				{OverworldTeleportIndex.Onrac,				Palette.Blue},
+				{OverworldTeleportIndex.Lefein,				Palette.Purple},
+				{OverworldTeleportIndex.ConeriaCastle1,		Palette.PaleGreen},
+				{OverworldTeleportIndex.ElflandCastle,		Palette.Green},
+				{OverworldTeleportIndex.NorthwestCastle,	Palette.Purple},
+				{OverworldTeleportIndex.CastleOrdeals1,		Palette.Greyscale},
+				{OverworldTeleportIndex.TempleOfFiends1,	Palette.Greyscale},
+				{OverworldTeleportIndex.DwarfCave,			Palette.DarkOrange},
+				{OverworldTeleportIndex.MatoyasCave,		Palette.Purple},
+				{OverworldTeleportIndex.SardasCave,			Palette.Yellow},
+				{OverworldTeleportIndex.MarshCave1,			Palette.PaleGreen},
+				{OverworldTeleportIndex.EarthCave1,			Palette.Orange},
+				{OverworldTeleportIndex.GurguVolcano1,		Palette.PaleRed},
+				{OverworldTeleportIndex.IceCave1,			Palette.PaleBlue},
+				{OverworldTeleportIndex.Cardia1,			Palette.Teal},
+				{OverworldTeleportIndex.Cardia2,			Palette.Teal},
+				{OverworldTeleportIndex.Cardia4,			Palette.Teal},
+				{OverworldTeleportIndex.Cardia5,			Palette.Teal},
+				{OverworldTeleportIndex.Cardia6,			Palette.Teal},
+				{OverworldTeleportIndex.BahamutCave1,		Palette.Teal},
+				{OverworldTeleportIndex.Waterfall,			Palette.DarkTeal},
+				{OverworldTeleportIndex.MirageTower1,		Palette.DarkOrange},
+				{OverworldTeleportIndex.TitansTunnelEast,	Palette.DarkBlue},
+				{OverworldTeleportIndex.TitansTunnelWest,	Palette.DarkBlue},
+				{OverworldTeleportIndex.Unused1,			Palette.Greyscale},
+				{OverworldTeleportIndex.Unused2,			Palette.Greyscale},
 			};
+
+		public enum Palette
+		{
+			Town = 0,
+			Castle = 1,
+			Greyscale = 2,
+			Orange = 3,
+			DarkOrange = 4,
+			PaleRed = 5,
+			Red = 6,
+			PaleBlue = 7,
+			Teal = 8,
+			DarkTeal = 9,
+			Purple = 10,
+			Yellow = 11,
+			PaleGreen = 12,
+			Green = 13,
+			Blue = 14,
+			LightBlue = 15,
+			DarkBlue = 16,
+			Bluescale = 17,
+			ForestGreen = 18,
+		};
 
 		const int bankStart = 0x4000;
 
