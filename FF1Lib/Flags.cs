@@ -154,6 +154,8 @@ namespace FF1Lib
 		public bool EarlySarda { get; set; }
 		[FlagString(Character = ITEM_REQUIREMENTS, FlagBit = 2)]
 		public bool EarlySage { get; set; }
+		[FlagString(Character = ITEM_REQUIREMENTS, FlagBit = 4)]
+		public bool ShufflePromotions { get; set; }
 		
 		[FlagString(Character = FILTHY_CASUALS, FlagBit = 1)]
 		public bool FreeBridge { get; set; }
