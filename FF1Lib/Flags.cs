@@ -34,7 +34,7 @@ namespace FF1Lib
 		[FlagString(Character = ITEMS, FlagBit = 8)]
 		public bool NPCFetchItems { get; set; }
 		[FlagString(Character = ITEMS, FlagBit = 16)]
-		public bool RandomWares { get; set; } // Planned 2.x feature - random weapons and armor in shops
+		public bool RandomWares { get; set; } 
 		[FlagString(Character = ITEMS, FlagBit = 32)]
 		public bool RandomLoot { get; set; } // Planned 2.x feature - random non-quest-item treasures
 		
@@ -48,10 +48,14 @@ namespace FF1Lib
 		[FlagString(Character = MAGIC, FlagBit = 1)]
 		public bool MagicShops { get; set; }
 		[FlagString(Character = MAGIC, FlagBit = 2)]
-		public bool MagicLevels { get; set; }
+		public bool RandomSpells { get; set; }
 		[FlagString(Character = MAGIC, FlagBit = 4)]
-		public bool MagicPermissions { get; set; }
+		public bool MagicLevels { get; set; }
 		[FlagString(Character = MAGIC, FlagBit = 8)]
+		public bool MixRedMagic { get; set; }
+		[FlagString(Character = MAGIC, FlagBit = 16)]
+		public bool MagicPermissions { get; set; }
+		[FlagString(Character = MAGIC, FlagBit = 32)]
 		public bool ItemMagic { get; set; }
 
 		[FlagString(Character = ENCOUNTERS, FlagBit = 1)]

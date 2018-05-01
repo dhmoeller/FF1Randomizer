@@ -52,14 +52,14 @@ namespace FF1Lib
             return result;
 		}
 
-		public void ShuffleMagicShops(MT19337 rng)
+		public void ShuffleMagicShops(MT19337 rng, bool randomSpells = false)
 		{
 			var pointers = Get(ShopPointerOffset, ShopPointerCount * ShopPointerSize).ToUShorts();
 
 			RepackShops(pointers);
 
-			ShuffleShopType(ShopType.White, pointers, rng);
-			ShuffleShopType(ShopType.Black, pointers, rng);
+			ShuffleShopType(ShopType.White, pointers, rng, randomSpells);
+			ShuffleShopType(ShopType.Black, pointers, rng, randomSpells);
 
 			Put(ShopPointerOffset, Blob.FromUShorts(pointers));
 		}
@@ -162,6 +162,16 @@ namespace FF1Lib
 						indeces.Remove((byte)exclusion);
 					}
 
+					for (int i = 0; i < newShops.Length; i++)
+					{
+						if (!indeces.Any()) break;
+						newShops[i] = newShops[i].Select(x => indeces.SpliceRandom(rng)).ToList();
+					}
+				} 
+				else if (shopType == ShopType.Black || shopType == ShopType.White) 
+				{
+					var indeces = Enumerable.Range((byte)(Item.Gold65000 + 1), 64).Select(i => (byte)i).ToList();
+					
 					for (int i = 0; i < newShops.Length; i++)
 					{
 						if (!indeces.Any()) break;

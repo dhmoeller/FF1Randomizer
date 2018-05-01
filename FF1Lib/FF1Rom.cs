@@ -145,13 +145,13 @@ namespace FF1Lib
 
 			if (flags.MagicShops)
 			{
-				ShuffleMagicShops(rng);
+				ShuffleMagicShops(rng, flags.RandomSpells);
 			}
 
 			if (flags.MagicLevels)
 			{
 				FixWarpBug(); // The warp bug only needs to be fixed if the magic levels are being shuffled
-				ShuffleMagicLevels(rng, flags.MagicPermissions);
+				ShuffleMagicLevels(rng, flags.MagicPermissions, flags.MixRedMagic);
 			}
 
 			if (flags.Rng)

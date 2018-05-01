@@ -43,7 +43,7 @@ namespace FF1Lib
 
 		private readonly List<byte> _outOfBattleSpells = new List<byte> { 0, 16, 32, 48, 19, 51, 35, 24, 33, 56, 38, 40, 41 };
 
-		public void ShuffleMagicLevels(MT19337 rng, bool keepPermissions)
+		public void ShuffleMagicLevels(MT19337 rng, bool keepPermissions, bool mixRedMagic = false)
 		{
 			var spells = Get(MagicOffset, MagicSize * MagicCount).Chunk(MagicSize);
 			var names = Get(MagicNamesOffset, MagicNameSize * MagicCount).Chunk(MagicNameSize);
@@ -61,6 +61,24 @@ namespace FF1Lib
 			// First we have to un-interleave white and black spells.
 			var whiteSpells = magicSpells.Where((spell, i) => (i / 4) % 2 == 0).ToList();
 			var blackSpells = magicSpells.Where((spell, i) => (i / 4) % 2 == 1).ToList();
+			
+			if(mixRedMagic)
+			{
+				var excludeFromBlack =
+					new List<byte> { 0x3C, 0x3B, 0x3A, 0x39, 0x34, 0x32, 0x31, 0x29, 0x24, 0x23, 0x1A, 0x14, 0x12, 0x02 }
+					.Select(x => (byte)(x - 1));
+				var excludeFromWhite = 
+					new List<byte> { 0x40, 0x3F, 0x3E, 0x3D, 0x38, 0x37, 0x36, 0x30, 0x2F, 0x2E }
+					.Select(x => (byte)(x - 1));
+				var combinedList = whiteSpells.Concat(blackSpells).ToList();
+				whiteSpells = combinedList.Where(x => excludeFromBlack.Contains(x.Index)).ToList();
+				combinedList = combinedList.Where(x => !excludeFromBlack.Contains(x.Index)).ToList();
+				blackSpells = combinedList.Where(x => excludeFromWhite.Contains(x.Index)).ToList();
+				combinedList = combinedList.Where(x => !excludeFromWhite.Contains(x.Index)).ToList();
+				combinedList.Shuffle(rng);
+				whiteSpells.AddRange(combinedList.Take(32 - whiteSpells.Count));
+				blackSpells.AddRange(combinedList.Skip(32 - whiteSpells.Count));
+			}
 
 			whiteSpells.Shuffle(rng);
 			blackSpells.Shuffle(rng);
