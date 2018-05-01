@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RomUtilities;
 
@@ -370,6 +371,22 @@ namespace FF1Lib
 			// The above code uses battle message $06 which is the unused Sight Recovered string
 			// Let's overwrite that string with something more appropriate for the WAIT command
 			Put(0x2CC71, FF1Text.TextToBytes("W A I T", false));
+		}
+
+		public void ShufflePromotions(MT19337 rng)
+		{
+			// Prevent Knights and Ninjas from gaining charges if they start with more than 4 already.
+			Data[0x2CD9F] = 0x30; // Changes a BNE to a BMI
+
+			// Replace the following with a 6 byte LUT of the promoted classes out of order
+			// ;;  Faux/Unused routine  [$9B3E :: 0x39B4E]
+			List<byte> promotedClasses = Enumerable.Range(6, 6).ToList().Select(value => (byte)value).ToList();
+			promotedClasses.Shuffle(rng);
+			Put(0x39B3E, promotedClasses.ToArray());
+
+			// Change DoClassChange to read from the LUT instead of adding 6.
+			// The load from the lut is exactly the same size as CLC and ADC #06 so the method is edited in place.
+			Put(0x395AE, Blob.FromHex("AE0061BD3E9B8D0061AE4061BD3E9B8D4061AE8061BD3E9B8D8061AEC061BD3E9B8DC061E65660"));
 		}
 	}
 }
