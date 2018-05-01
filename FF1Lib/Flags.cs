@@ -5,6 +5,7 @@ using System.Linq;
 namespace FF1Lib
 {
 	public class Flags : IIncentiveFlags, IMapEditFlags
+	, IScaleFlags
 	{
 		// Character Groupings
 		private const int ITEMS = 0;
@@ -24,6 +25,7 @@ namespace FF1Lib
 		private const int CONVENIENCES = 14;
 		private const int BUG_FIXES = 15;
 		private const int ENEMY_BUG_FIXES = 16;
+		private const int SCALE = 17;
 		
 		[FlagString(Character = ITEMS, FlagBit = 1)]
 		public bool Shops { get; set; }
@@ -160,8 +162,6 @@ namespace FF1Lib
 		public bool FreeAirship { get; set; }
 		[FlagString(Character = FILTHY_CASUALS, FlagBit = 4)]
 		public bool FreeOrbs { get; set; }
-		[FlagString(Character = FILTHY_CASUALS, FlagBit = 8)]
-		public bool VanillaStartingGold { get; set; }
 		[FlagString(Character = FILTHY_CASUALS, FlagBit = 32)]
 		public bool EasyMode { get; set; }
 		
@@ -197,15 +197,24 @@ namespace FF1Lib
 		[FlagString(Character = ENEMY_BUG_FIXES, FlagBit = 4)]
 		public bool EnemyElementalResistancesBug { get; set; }
 
-		[FlagString(Character = 17, Multiplier = 0.1)]
-		public double EnemyScaleFactor { get; set; }
+		[FlagString(Character = SCALE, FlagBit = 1)]
+		public bool StartingGold { get; set; }
+		[FlagString(Character = SCALE, FlagBit = 2)]
+		public bool WrapStatOverflow { get; set; } // planned 2.x feature
+		[FlagString(Character = SCALE, FlagBit = 4)]
+		public bool WrapPriceOverflow { get; set; } // planned 2.x feature
+		
 		[FlagString(Character = 18, Multiplier = 0.1)]
-		public double PriceScaleFactor { get; set; }
+		public double EnemyScaleFactor { get; set; }
 		[FlagString(Character = 19, Multiplier = 0.1)]
+		public double PriceScaleFactor { get; set; }
+		[FlagString(Character = 20, Multiplier = 0.1)]
 		public double ExpMultiplier { get; set; }
-		[FlagString(Character = 20, Multiplier = 10)]
+		[FlagString(Character = 21, Multiplier = 10)]
 		public int ExpBonus { get; set; }
-		[FlagString(Character = 21, Multiplier = 1)]
+		[FlagString(Character = 22, Multiplier = 1)]
+		public double EncounterRate { get; set; } // planned 2.x feature
+		[FlagString(Character = 23, Multiplier = 1)]
 		public int ForcedPartyMembers { get; set; }
 		
 		public bool ModernBattlefield { get; set; }
