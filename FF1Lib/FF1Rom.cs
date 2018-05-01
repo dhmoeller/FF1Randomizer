@@ -307,7 +307,8 @@ namespace FF1Lib
 			var itemText = ReadText(ItemTextPointerOffset, ItemTextPointerBase, ItemTextPointerCount);
 			FixVanillaRibbon(itemText);
 			ExpGoldBoost(flags.ExpBonus, flags.ExpMultiplier);
-			ScalePrices(flags.PriceScaleFactor, flags.ExpMultiplier, flags.VanillaStartingGold, itemText, rng);
+			ScalePrices(flags, itemText, rng);
+			ScaleEncounterRate(flags.EncounterRate / 50.0);
 
 			overworldMap.ApplyMapEdits();
 			WriteMaps(maps);
@@ -316,7 +317,7 @@ namespace FF1Lib
 
 			if (flags.EnemyScaleFactor > 1)
 			{
-				ScaleEnemyStats(flags.EnemyScaleFactor, rng);
+				ScaleEnemyStats(flags.EnemyScaleFactor, flags.WrapStatOverflow, rng);
 			}
 
 			if (flags.ForcedPartyMembers > 0)
@@ -525,6 +526,14 @@ namespace FF1Lib
 			rngTable.Shuffle(rng);
 
 			Put(RngOffset, rngTable.SelectMany(blob => blob.ToBytes()).ToArray());
+		}
+		
+		private void ScaleEncounterRate(double multiplier)
+		{
+			var newRng = Get(RngOffset, RngSize).ToBytes()
+				.Select(x => (byte)(multiplier <= 0.01 ? 240 : Math.Min(240, x / multiplier)))
+				.ToArray();
+			Put(RngOffset, newRng);
 		}
 
 		public void ExpGoldBoost(double bonus, double multiplier)

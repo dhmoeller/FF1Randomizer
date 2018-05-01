@@ -83,6 +83,14 @@
 		bool EarlySage { get; }
 		bool CrownlessOrdeals { get; }
 	}
+	public interface IScaleFlags 
+	{
+		bool StartingGold { get; }
+		bool WrapPriceOverflow { get; }
+		bool WrapStatOverflow { get; }
+		double ExpMultiplier { get; }
+		double PriceScaleFactor { get; }
+	}
 	public interface IVictoryConditionFlags
 	{
 		bool OnlyRequireGameIsBeatable { get; }
