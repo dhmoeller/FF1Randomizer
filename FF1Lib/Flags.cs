@@ -221,6 +221,12 @@ namespace FF1Lib
 		public double EncounterRate { get; set; } // planned 2.x feature
 		[FlagString(Character = 23, Multiplier = 1)]
 		public int ForcedPartyMembers { get; set; }
+<<<<<<< HEAD
+=======
+		[FlagString(Character = 24, FlagBit = 1)]
+		public bool AllowNone { get; set; }
+
+>>>>>>> edea0a5... None is now an option when generating your party
 
 		public bool ModernBattlefield { get; set; }
 		public bool FunEnemyNames { get; set; }

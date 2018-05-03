@@ -134,6 +134,7 @@ namespace FF1RandomizerOnline.Controllers
 					WrapPriceOverflow = false,
 					
 					ForcedPartyMembers = 0,
+					AllowNone = true,
 					PriceScaleFactor = 3.0,
 					EnemyScaleFactor = 1.5,
 					ExpMultiplier = 2.5,

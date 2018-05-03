@@ -83,7 +83,7 @@ namespace FF1Lib
 			var rng = new MT19337(BitConverter.ToUInt32(seed, 0));
 
 			UpgradeToMMC3();
-			MakeSpaceIn1F();
+			MakeSpace();
 			EasterEggs();
 			DynamicWindowColor();
 			PermanentCaravan();
@@ -176,10 +176,8 @@ namespace FF1Lib
 				ShuffleMagicLevels(rng, flags.MagicPermissions);
 			}
 
-			if (flags.ShufflePromotions)
-			{
-				ShufflePromotions(rng);
-			}
+			// Always changes how promotions are done, results in vanilla behaviour if flags.ShufflePromotions == false
+			ShufflePromotions(rng, flags.ShufflePromotions);
 
 			if (flags.Rng)
 			{
@@ -354,7 +352,13 @@ namespace FF1Lib
 
 			if (flags.ForcedPartyMembers > 0)
 			{
-				PartyRandomize(rng, flags.ForcedPartyMembers);
+				PartyRandomize(rng, flags.ForcedPartyMembers, flags.AllowNone);
+			}
+			
+			// Needs to be done after forcing party members
+			if (flags.AllowNone)
+			{
+				AllowNone(flags.ForcedPartyMembers);
 			}
 
 			if (flags.MapCanalBridge)
@@ -493,7 +497,7 @@ namespace FF1Lib
 			PutInBank(0x0F, 0x8B00, Blob.FromHex("BAE030B01E8A8D1001A9F4AAA9FBA8BD0001990001CA88E010D0F4AD1001186907AA9AA52948A52A48A50D48A54848A549484C65C9"));
 		}
 
-		public void MakeSpaceIn1F()
+		public void MakeSpace()
 		{
 			// 54 bytes starting at 0xC265 in bank 1F, ROM offset: 7C275
 			// This removes the code for the minigame on the ship, and moves the prior code around too
@@ -504,6 +508,11 @@ namespace FF1Lib
 			// 28 byte starting at 0xCFCB in bank 1F, ROM offset: 7CFDB
 			// This removes the AssertNasirCRC routine, which we were skipping anyways, no point in keeping uncalled routines
 			PutInBank(0x1F, 0xCFCB, Blob.FromHex("EAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEA"));
+
+			// Used by ShufflePromotions() and AllowNone()
+			PutInBank(0x0E, 0xB816, Blob.FromHex("206BC24C95EC"));
+			PutInBank(0x1F, 0xC26B, CreateLongJumpTableEntry(0x0F, 0x8B40));
+			PutInBank(0x0F, 0x8B40, Blob.FromHex("A562851029030A851118651165110A0A0A1869508540A5100A0A29F0186928854160"));
 		}
 
 		public override bool Validate()
