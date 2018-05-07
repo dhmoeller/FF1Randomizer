@@ -104,7 +104,7 @@ namespace FF1Lib
 		const int teleportYOffset = 0x2D40;
 		const int teleportMapIndexOffset = 0x2D80;
 
-		private Dictionary<Palette, Blob> GeneratePalettes(List<Blob> vanillaPalettes)
+		public static Dictionary<Palette, Blob> GeneratePalettes(List<Blob> vanillaPalettes)
 		{
 			Dictionary<Palette, Blob> palettes = new Dictionary<Palette, Blob>();
 			palettes.Add(Palette.Town,			vanillaPalettes[(int)MapIndex.ConeriaTown]);
