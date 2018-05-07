@@ -31,6 +31,20 @@ namespace FF1Lib
 			TeleportLocation = teleportLocation;
 		}
 	}
+
+	public abstract class LocationHelper
+	{
+		public static readonly IReadOnlyCollection<MapLocation> UnpalettableLocations = new List<MapLocation>
+		{
+			MapLocation.GurguVolcano3, MapLocation.GurguVolcano4, MapLocation.IceCave3,
+			MapLocation.IceCavePitRoom, MapLocation.IceCaveBackExit, MapLocation.Cardia1, MapLocation.Cardia2,
+			MapLocation.Cardia4, MapLocation.Cardia5, MapLocation.MarshCaveTop, MapLocation.SeaShrine4,
+			MapLocation.SeaShrine5, MapLocation.SeaShrine6, MapLocation.SeaShrine7, MapLocation.TempleOfFiends1Room1,
+			MapLocation.TempleOfFiends1Room2, MapLocation.TempleOfFiends1Room3, MapLocation.TempleOfFiends1Room4,
+			MapLocation.TempleOfFiendsPhantom, MapLocation.TitansTunnelWest
+		};
+	};
+
 	public struct TeleportDestination
 	{
 		public readonly MapLocation Destination;
@@ -42,6 +56,7 @@ namespace FF1Lib
 		public string SpoilerText =>
 		$"{Enum.GetName(typeof(MapLocation), Destination)}" +
 		$"{string.Join("", Enumerable.Repeat(" ", Math.Max(1, 30 - Enum.GetName(typeof(MapLocation), Destination).Length)).ToList())}";
+		public bool OwnsPalette => !LocationHelper.UnpalettableLocations.Contains(Destination);
 		public TeleportDestination(MapLocation destination, MapIndex index, Coordinate coordinates, IEnumerable<TeleportIndex> teleports = null, ExitTeleportIndex exits = ExitTeleportIndex.None)
 		{
 			Destination = destination;

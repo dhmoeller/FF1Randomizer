@@ -242,7 +242,7 @@ namespace FF1Lib
 
 		public void EnableDash()
 		{
-			Put(0x7D077, Blob.FromHex("4A252DD002A54224205002A9044A6900853460"));
+			Put(0x7D077, Blob.FromHex("A5424A69004A69000A242050014A853460"));
 		}
 
 		public void EnableBuyTen()
@@ -375,6 +375,9 @@ namespace FF1Lib
 
 		public void ShufflePromotions(MT19337 rng)
 		{
+			// Prevent Knights and Ninjas from gaining charges if they start with more than 4 already.
+			Data[0x2CD9F] = 0x30; // Changes a BNE to a BMI
+
 			// Replace the following with a 6 byte LUT of the promoted classes out of order
 			// ;;  Faux/Unused routine  [$9B3E :: 0x39B4E]
 			List<byte> promotedClasses = Enumerable.Range(6, 6).ToList().Select(value => (byte)value).ToList();
@@ -383,34 +386,6 @@ namespace FF1Lib
 
 			// Change DoClassChange to read from the LUT instead of adding 6.
 			// The load from the lut is exactly the same size as CLC and ADC #06 so the method is edited in place.
-			/*
-				define lut_promotion $9586
-				define dlgflg_reentermap $56
-				define ch_class0 $6100
-				define ch_class1 $6140
-				define ch_class2 $6180
-				define ch_class3 $61C0
-
-				DoClassChange:
-					LDX ch_class0
-					LDA lut_promotion, X
-					STA ch_class0
-
-					LDX ch_class1
-					LDA lut_promotion, X
-					STA ch_class1
-
-					LDX ch_class2
-					LDA lut_promotion, X
-					STA ch_class2
-
-					LDX ch_class3
-					LDA lut_promotion, X
-					STA ch_class3
-
-					INC dlgflg_reentermap  ; set flag
-					RTS
-			*/
 			Put(0x395AE, Blob.FromHex("AE0061BD3E9B8D0061AE4061BD3E9B8D4061AE8061BD3E9B8D8061AEC061BD3E9B8DC061E65660"));
 		}
 	}

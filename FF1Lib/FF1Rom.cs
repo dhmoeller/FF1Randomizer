@@ -89,7 +89,8 @@ namespace FF1Lib
 			PermanentCaravan();
 			ShiftEarthOrbDown();
 
-			var overworldMap = new OverworldMap(this, flags);
+			var palettes = OverworldMap.GeneratePalettes(Get(OverworldMap.MapPaletteOffset, MapCount * OverworldMap.MapPaletteSize).Chunk(OverworldMap.MapPaletteSize));
+			var overworldMap = new OverworldMap(this, flags, palettes);
 			var maps = ReadMaps();
 			var shopItemLocation = ItemLocations.CaravanItemShop1;
 
@@ -134,7 +135,7 @@ namespace FF1Lib
 			{
 				try
 				{
-					overworldMap = new OverworldMap(this, flags);
+					overworldMap = new OverworldMap(this, flags, palettes);
 					if ((flags.Entrances || flags.Floors || flags.Towns) && flags.Treasures && flags.NPCItems)
 					{
 						overworldMap.ShuffleEntrancesAndFloors(rng, flags);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace FF1Lib
 {
@@ -156,6 +157,8 @@ namespace FF1Lib
 		public bool EarlySage { get; set; }
 		[FlagString(Character = ITEM_REQUIREMENTS, FlagBit = 4)]
 		public bool ShufflePromotions { get; set; }
+		[FlagString(Character = ITEM_REQUIREMENTS, FlagBit = 32)]
+		public bool OnlyRequireGameIsBeatable { get; set; }
 		
 		[FlagString(Character = FILTHY_CASUALS, FlagBit = 1)]
 		public bool FreeBridge { get; set; }
@@ -216,7 +219,7 @@ namespace FF1Lib
 		public double EncounterRate { get; set; } // planned 2.x feature
 		[FlagString(Character = 23, Multiplier = 1)]
 		public int ForcedPartyMembers { get; set; }
-		
+
 		public bool ModernBattlefield { get; set; }
 		public bool FunEnemyNames { get; set; }
 		public bool PaletteSwap { get; set; }
@@ -224,7 +227,6 @@ namespace FF1Lib
 		public MusicShuffle Music { get; set; }
 
 		public bool AllowStartAreaDanager { get; set; } = false;
-		public bool OnlyRequireGameIsBeatable { get; set; } = false;
 		
 		public bool MapCanalBridge => NPCItems || NPCFetchItems;
 		public bool MapOnracDock => MapOpenProgression;
@@ -325,12 +327,14 @@ namespace FF1Lib
 			foreach (var inputChar in inputCharacters)
 			{
 				var charFlagValue = base64CharString.IndexOf(inputChar);
-				var flagAttributesForChar = flagAttributes[index];
+				var flagAttributesForChar = flagAttributes[index++];
 				if (flagAttributesForChar.Any(x => x.Value.FlagBit < 1))
 				{
 					var multiplierAttribute = flagAttributesForChar.First(x => x.Value.FlagBit < 1);
+
 					var outputValue = charFlagValue * multiplierAttribute.Value.Multiplier;
-					typeof(Flags).GetProperty(multiplierAttribute.Key).SetValue(result, outputValue);
+					var property = typeof(Flags).GetProperty(multiplierAttribute.Key);
+					property.SetValue(result, Convert.ChangeType(outputValue, property.PropertyType));
 					continue;
 				}
 				foreach (var flagAttribute in flagAttributesForChar)
@@ -341,6 +345,14 @@ namespace FF1Lib
 			}
 			return result;
 		}
+
+		class Preset
+		{
+			public string Name { get; set; }
+			public Flags Flags { get; set; }
+		}
+
+		public static Flags FromJson(string json) => JsonConvert.DeserializeObject<Preset>(json).Flags;
 	}
 
 	public class FlagStringAttribute : Attribute
@@ -363,7 +375,6 @@ namespace FF1Lib
 			$"set:function(newValue){{while(this.flagString.length <= {Character})this.flagString += base64Chars[0];" +
 			$"var scaledValue = (newValue / {Multiplier}).toFixed() % base64Chars.length;" +
 			$"this.flagString = this.flagString.substr(0,{Character}) + base64Chars[scaledValue] + this.flagString.substr({Character + 1});}} }}";
-
 		}
 	}
 }
