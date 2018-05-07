@@ -16,16 +16,16 @@ namespace FF1Lib
 	public class OverworldMap
 	{
 		private readonly FF1Rom _rom;
-		const int MapPaletteOffset = 0x2000;
-		const int MapPaletteSize = 48;
-		const int MapCount = 64;
+		private readonly Dictionary<Palette, Blob> _palettes;
 
-		private static Object FloorPalettesLock = new Object();
-		private static volatile Dictionary<Palette, Blob> FloorPalettes;
+		public const int MapPaletteOffset = 0x2000;
+		public const int MapPaletteSize = 48;
+		public const int MapCount = 64;
 
-		public OverworldMap(FF1Rom rom, IMapEditFlags flags)
+		public OverworldMap(FF1Rom rom, IMapEditFlags flags, Dictionary<Palette, Blob> palettes)
 		{
 			_rom = rom;
+			_palettes = palettes;
 			var mapLocationRequirements = ItemLocations.MapLocationRequirements.ToDictionary(x => x.Key, x => x.Value.ToList());
 			var floorLocationRequirements = ItemLocations.MapLocationFloorRequirements.ToDictionary(x => x.Key, x => x.Value);
 
@@ -90,17 +90,6 @@ namespace FF1Lib
 			
 			MapLocationRequirements = mapLocationRequirements;
 			FloorLocationRequirements = floorLocationRequirements;
-
-			if (FloorPalettes == null)
-			{
-				lock (FloorPalettesLock)
-				{
-					if (FloorPalettes == null)
-					{
-						FloorPalettes = GeneratePalettes(_rom.Get(MapPaletteOffset, MapCount * MapPaletteSize).Chunk(MapPaletteSize));
-					}
-				}
-			}
 		}
 
 		const int teleportEntranceXOffset = 0x2C00;
@@ -115,7 +104,7 @@ namespace FF1Lib
 		const int teleportYOffset = 0x2D40;
 		const int teleportMapIndexOffset = 0x2D80;
 
-		private Dictionary<Palette, Blob> GeneratePalettes(List<Blob> vanillaPalettes)
+		public static Dictionary<Palette, Blob> GeneratePalettes(List<Blob> vanillaPalettes)
 		{
 			Dictionary<Palette, Blob> palettes = new Dictionary<Palette, Blob>();
 			palettes.Add(Palette.Town,			vanillaPalettes[(int)MapIndex.ConeriaTown]);
@@ -171,21 +160,21 @@ namespace FF1Lib
 				// But if a town ends up in place of another town, the default palette is appropriate.
 				if (source < OverworldTeleportIndex.Coneria || source > OverworldTeleportIndex.Lefein)
 				{
-					_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 1,  FloorPalettes[palette].SubBlob(9, 2));
-					_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 6,  FloorPalettes[palette].SubBlob(9, 1));
-					_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 33, FloorPalettes[palette].SubBlob(9, 2));
-					_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 38, FloorPalettes[palette].SubBlob(9, 1));
+					_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 1,  _palettes[palette].SubBlob(9, 2));
+					_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 6,  _palettes[palette].SubBlob(9, 1));
+					_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 33, _palettes[palette].SubBlob(9, 2));
+					_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 38, _palettes[palette].SubBlob(9, 1));
 				}
 			}
 			else if (destination.Index <  MapIndex.EarthCaveB1)
 			{
-				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 8,  FloorPalettes[palette].SubBlob(8, 8));
-				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 40, FloorPalettes[palette].SubBlob(40, 8));
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 8,  _palettes[palette].SubBlob(8, 8));
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 40, _palettes[palette].SubBlob(40, 8));
 			}
 			else
 			{
-				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize,      FloorPalettes[palette].SubBlob(0, 16));
-				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 32, FloorPalettes[palette].SubBlob(32, 16));
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize,      _palettes[palette].SubBlob(0, 16));
+				_rom.Put(MapPaletteOffset + (int)destination.Index * MapPaletteSize + 32, _palettes[palette].SubBlob(32, 16));
 			}
 		}
 
