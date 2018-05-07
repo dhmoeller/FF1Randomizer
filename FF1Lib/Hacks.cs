@@ -388,5 +388,16 @@ namespace FF1Lib
 			// The load from the lut is exactly the same size as CLC and ADC #06 so the method is edited in place.
 			Put(0x395AE, Blob.FromHex("AE0061BD3E9B8D0061AE4061BD3E9B8D4061AE8061BD3E9B8D8061AEC061BD3E9B8DC061E65660"));
 		}
+
+		public void ImproveTurnOrderRandomization(MT19337 rng)
+		{
+			// Shuffle the initial bias so enemies are no longer always at the start initially.
+			List<byte> turnOrder = new List<byte> { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x80, 0x81, 0x82, 0x83 };
+			turnOrder.Shuffle(rng);
+			Put(0x3215C, turnOrder.ToArray());
+
+			// Bump shuffle iterations from 16 to 64
+			Data[0x3217B] = 0x41;
+		}
 	}
 }
