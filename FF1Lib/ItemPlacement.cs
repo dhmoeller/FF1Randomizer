@@ -188,6 +188,23 @@ namespace FF1Lib
 				// 7. Check sanity and loop if needed
 			} while (!CheckSanity(placedItems, mapLocationRequirements, mapLocationFloorRequirements, flags));
 
+			placedItems.ForEach(item =>
+			{
+				var itemName = Enum.GetName(typeof(Item), item.Item);
+				var locName = Enum.GetName(typeof(MapLocation), item.MapLocation);
+				Console.WriteLine($"{itemName} in {locName}, requires: ");
+
+				if (mapLocationRequirements.TryGetValue(item.MapLocation, out var mapChanges))
+				{
+					Console.WriteLine($"\t MapChanges: {String.Join(", ", mapChanges.Select(mapChange => Enum.GetName(typeof(MapChange), mapChange)).ToArray())}");
+				}
+
+				if (mapLocationFloorRequirements.TryGetValue(item.MapLocation, out var element))
+				{
+					Console.WriteLine($"\t MapFloorReqs: {Enum.GetName(typeof(MapLocation), element.Item1)} - {Enum.GetName(typeof(AccessRequirement), element.Item2)}");
+				}
+			});
+
 			// 8. Place all remaining unincentivized treasures or incentivized non-quest items that weren't placed
 			var i = 0;
 			itemLocationPool =
