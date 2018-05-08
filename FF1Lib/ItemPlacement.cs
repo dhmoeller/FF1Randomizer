@@ -196,12 +196,12 @@ namespace FF1Lib
 
 				if (mapLocationRequirements.TryGetValue(item.MapLocation, out var mapChanges))
 				{
-					Console.WriteLine($"\t MapChanges: {String.Join(", ", mapChanges.Select(mapChange => Enum.GetName(typeof(MapChange), mapChange)).ToArray())}");
+					Console.WriteLine($"\tMapChanges: {String.Join(", ", mapChanges.Select(mapChange => Enum.GetName(typeof(MapChange), mapChange)).ToArray())}");
 				}
 
-				if (mapLocationFloorRequirements.TryGetValue(item.MapLocation, out var element))
+				if (mapLocationFloorRequirements.TryGetValue(item.MapLocation, out var requirement))
 				{
-					Console.WriteLine($"\t MapFloorReqs: {Enum.GetName(typeof(MapLocation), element.Item1)} - {Enum.GetName(typeof(AccessRequirement), element.Item2)}");
+					Console.WriteLine($"\tFloor Requirements: {Enum.GetName(typeof(MapLocation), requirement.Item1)} - {Enum.GetName(typeof(AccessRequirement), requirement.Item2)}");
 				}
 			});
 
