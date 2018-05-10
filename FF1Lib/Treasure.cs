@@ -31,7 +31,8 @@ namespace FF1Lib
 													IncentiveData incentivesData,
 													ItemShopSlot caravanItemLocation,
 													Dictionary<MapLocation, List<MapChange>> mapLocationRequirements,
-													Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements)
+													Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements,
+													Dictionary<MapLocation, Tuple<List<MapChange>, AccessRequirement>> fullFloorRequirements)
 		{
 			var vanillaNPCs = !flags.NPCItems && !flags.NPCFetchItems;
 			if (!vanillaNPCs)
@@ -63,7 +64,8 @@ namespace FF1Lib
 											treasurePool,
 											caravanItemLocation,
 											mapLocationRequirements,
-											mapLocationFloorRequirements);
+											mapLocationFloorRequirements,
+											fullFloorRequirements);
 
 			if (flags.FreeBridge)
 			{

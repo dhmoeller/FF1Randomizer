@@ -130,7 +130,7 @@ namespace FF1Lib
 				TransformFinalFormation((FinalFormation)rng.Between(0, Enum.GetValues(typeof(FinalFormation)).Length - 1));
 			}
 			
-			var maxRetries = 50;
+			var maxRetries = 500;
 			for (var i = 0; i < maxRetries; i++)
 			{
 				try
@@ -141,7 +141,7 @@ namespace FF1Lib
 						overworldMap.ShuffleEntrancesAndFloors(rng, flags);
 					}
 
-					var incentivesData = new IncentiveData(rng, flags, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements);
+					var incentivesData = new IncentiveData(rng, flags, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements, overworldMap.FullLocationRequirements);
 
 					if (flags.Shops)
 					{
@@ -153,7 +153,7 @@ namespace FF1Lib
 
 					if (flags.Treasures || flags.NPCItems || flags.NPCFetchItems)
 					{
-						ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements);
+						ShuffleTreasures(rng, flags, incentivesData, shopItemLocation, overworldMap.MapLocationRequirements, overworldMap.FloorLocationRequirements, overworldMap.FullLocationRequirements);
 					}
 					break;
 				}

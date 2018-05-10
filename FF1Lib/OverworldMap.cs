@@ -352,6 +352,48 @@ namespace FF1Lib
 			{
 				MapLocationRequirements[key].Add(MapChange.TitanFed | MapChange.Canoe);
 			}
+
+			// Flatten into one Dictionary
+			FullLocationRequirements = new Dictionary<MapLocation, Tuple<List<MapChange>, AccessRequirement>>();
+			foreach (var mlr in MapLocationRequirements)
+			{
+				FullLocationRequirements.Add(mlr.Key, new Tuple<List<MapChange>, AccessRequirement> (mlr.Value, AccessRequirement.None));
+			}
+
+			foreach (var flr in FloorLocationRequirements)
+			{
+				List<MapLocation> cycleFinder = new List<MapLocation>();
+				AccessRequirement requirements = AccessRequirement.None;
+
+				MapLocation location = flr.Key;
+				while (FloorLocationRequirements.TryGetValue(location, out var floorRequirement))
+				{
+					if (cycleFinder.Contains(location))
+					{
+						Console.WriteLine("Floor requirement cycle???");
+						throw new InsaneException();
+					}
+
+					cycleFinder.Add(location);
+					requirements |= floorRequirement.Item2;
+					location = floorRequirement.Item1;
+				}
+				var found = MapLocationRequirements.TryGetValue(location, out var overworldRequirements);
+				if (found)
+				{
+					FullLocationRequirements.Add(flr.Key, new Tuple<List<MapChange>, AccessRequirement>(overworldRequirements, requirements));
+				}
+				else
+				{
+					Console.WriteLine("Floors missing????");
+					throw new InsaneException();
+				}
+			}
+
+			foreach (var flr in FullLocationRequirements)
+			{
+				Console.WriteLine($"\tFULL: {flr.Key.ToString()}: {String.Join(", ", flr.Value.Item1.Select(mapChange => Enum.GetName(typeof(MapChange), mapChange)).ToArray())} & {Enum.GetName(typeof(AccessRequirement), flr.Value.Item2)}");
+			}
 		}
 		
 		public bool CheckEntranceSanity(IEnumerable<KeyValuePair<OverworldTeleportIndex, TeleportDestination>> shuffledEntrances, 
@@ -410,6 +452,7 @@ namespace FF1Lib
 		
 		public Dictionary<MapLocation, List<MapChange>> MapLocationRequirements;
 		public Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> FloorLocationRequirements;
+		public Dictionary<MapLocation, Tuple<List<MapChange>, AccessRequirement>> FullLocationRequirements;
 		
 		public const byte GrassTile = 0x00;
 		public const byte GrassBottomRightCoast = 0x06;

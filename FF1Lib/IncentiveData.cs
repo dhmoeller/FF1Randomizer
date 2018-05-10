@@ -10,7 +10,8 @@ namespace FF1Lib
 		public IncentiveData(MT19337 rng, 
 							IIncentiveFlags flags,
 							Dictionary<MapLocation, List<MapChange>> mapLocationRequirements,
-							Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements)
+							Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements,
+							Dictionary<MapLocation, Tuple<List<MapChange>, AccessRequirement>> fullLocationRequirements)
 		{
 			var forcedItemPlacements = ItemLocations.AllOtherItemLocations.ToList();
 			if (!flags.NPCItems) forcedItemPlacements.AddRange(ItemLocations.AllNPCFreeItemLocations);
@@ -332,11 +333,11 @@ namespace FF1Lib
 				var everythingButOrbs = ~AccessRequirement.BlackOrb;
 				var startingPotentialAccess = AccessRequirement.Key | AccessRequirement.Tnt | AccessRequirement.Adamant;
 				var startingMapLocations = 
-					ItemPlacement.AccessibleMapLocations(startingPotentialAccess, MapChange.None, mapLocationRequirements, mapLocationFloorRequirements);
+					ItemPlacement.AccessibleMapLocations(startingPotentialAccess, MapChange.None, mapLocationRequirements, mapLocationFloorRequirements, fullLocationRequirements);
 				var validShipMapLocations =
-					ItemPlacement.AccessibleMapLocations(startingPotentialAccess | AccessRequirement.Crystal, MapChange.Bridge, mapLocationRequirements, mapLocationFloorRequirements);
+					ItemPlacement.AccessibleMapLocations(startingPotentialAccess | AccessRequirement.Crystal, MapChange.Bridge, mapLocationRequirements, mapLocationFloorRequirements, fullLocationRequirements);
 				var validCanoeMapLocations = 
-					ItemPlacement.AccessibleMapLocations(everythingButOrbs, everythingButCanoe, mapLocationRequirements, mapLocationFloorRequirements);
+					ItemPlacement.AccessibleMapLocations(everythingButOrbs, everythingButCanoe, mapLocationRequirements, mapLocationFloorRequirements, fullLocationRequirements);
 
 				validBridgeLocations =
 					itemLocationPool.Where(x => startingMapLocations.Contains(x.MapLocation) &&

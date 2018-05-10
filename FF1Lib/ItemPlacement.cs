@@ -18,7 +18,8 @@ namespace FF1Lib
 														List<Item> allTreasures,
 														ItemShopSlot caravanItemLocation,
 														Dictionary<MapLocation, List<MapChange>> mapLocationRequirements,
-														Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements)
+														Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements,
+														Dictionary<MapLocation, Tuple<List<MapChange>, AccessRequirement>> fullLocationRequirements)
 		{
 			long sanityCounter = 0;
 			List<IRewardSource> placedItems;
@@ -34,8 +35,8 @@ namespace FF1Lib
 			var shipLocations = incentivesData.ShipLocations.ToList();
 			var itemLocationPool = incentivesData.AllValidItemLocations.ToList();
 			var startingPotentialAccess = AccessRequirement.Key | AccessRequirement.Tnt | AccessRequirement.Adamant;
-			var startingMapLocations = AccessibleMapLocations(startingPotentialAccess, MapChange.None, mapLocationRequirements, mapLocationFloorRequirements);
-			var earlyMapLocations = AccessibleMapLocations(startingPotentialAccess | AccessRequirement.Crystal, MapChange.Bridge, mapLocationRequirements, mapLocationFloorRequirements);
+			var startingMapLocations = AccessibleMapLocations(startingPotentialAccess, MapChange.None, mapLocationRequirements, mapLocationFloorRequirements, fullLocationRequirements);
+			var earlyMapLocations = AccessibleMapLocations(startingPotentialAccess | AccessRequirement.Crystal, MapChange.Bridge, mapLocationRequirements, mapLocationFloorRequirements, fullLocationRequirements);
 
 			var unincentivizedQuestItems =
 				ItemLists.AllQuestItems
@@ -186,9 +187,9 @@ namespace FF1Lib
 				}
 
 				// 7. Check sanity and loop if needed
-			} while (!CheckSanity(placedItems, mapLocationRequirements, mapLocationFloorRequirements, flags));
+			} while (!CheckSanity(placedItems, mapLocationRequirements, mapLocationFloorRequirements, fullLocationRequirements, flags));
 
-			placedItems.ForEach(item =>
+			placedItems.Where(item => item.Item != Item.Shard).ToList().ForEach(item =>
 			{
 				var itemName = Enum.GetName(typeof(Item), item.Item);
 				var locName = Enum.GetName(typeof(MapLocation), item.MapLocation);
@@ -202,6 +203,11 @@ namespace FF1Lib
 				if (mapLocationFloorRequirements.TryGetValue(item.MapLocation, out var requirement))
 				{
 					Console.WriteLine($"\tFloor Requirements: {Enum.GetName(typeof(MapLocation), requirement.Item1)} - {Enum.GetName(typeof(AccessRequirement), requirement.Item2)}");
+				}
+
+				if (fullLocationRequirements.TryGetValue(item.MapLocation, out var flr))
+				{
+					Console.WriteLine($"\tFULL: {String.Join(", ", flr.Item1.Select(mapChange => Enum.GetName(typeof(MapChange), mapChange)).ToArray())} & {Enum.GetName(typeof(AccessRequirement), flr.Item2)}");
 				}
 			});
 
@@ -251,7 +257,8 @@ namespace FF1Lib
 										AccessRequirement currentAccess,
 										MapChange currentMapChanges,
 										Dictionary<MapLocation, List<MapChange>> mapLocationRequirements,
-										Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements)
+										Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements,
+										Dictionary<MapLocation, Tuple<List<MapChange>, AccessRequirement>> fullLocationRequirements)
 		{
 			var worldMap = mapLocationRequirements
 				.Where(x => x.Value.Any(y => currentMapChanges.HasFlag(y))).Select(x => x.Key);
@@ -274,6 +281,7 @@ namespace FF1Lib
 		public static bool CheckSanity(List<IRewardSource> treasurePlacements,
 										Dictionary<MapLocation, List<MapChange>> mapLocationRequirements,
 										Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>> mapLocationFloorRequirements,
+										Dictionary<MapLocation, Tuple<List<MapChange>, AccessRequirement>> fullLocationRequirements,
 										IVictoryConditionFlags victoryConditions)
 		{
 			const int maxIterations = 20;
@@ -286,7 +294,7 @@ namespace FF1Lib
 
 			var currentMapChanges = MapChange.None;
 
-			Func<IEnumerable<MapLocation>> currentMapLocations =
+			Func<IEnumerable<MapLocation>> currentMapLocationsOLD =
 				() =>
 				{
 					var worldMap = mapLocationRequirements
@@ -306,6 +314,11 @@ namespace FF1Lib
 						}
 					}
 					return worldMap.Concat(standardMaps.ToList());
+				};
+			Func<IEnumerable<MapLocation>> currentMapLocations =
+				() =>
+				{
+					return fullLocationRequirements.Where(x => x.Value.Item1.Any(y => currentMapChanges.HasFlag(y) && currentAccess.HasFlag(x.Value.Item2))).Select(x => x.Key);
 				};
 			Func<IEnumerable<IRewardSource>> currentItemLocations =
 				() => treasurePlacements
