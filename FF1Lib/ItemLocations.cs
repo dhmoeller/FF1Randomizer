@@ -339,10 +339,11 @@ namespace FF1Lib
 			new Dictionary<MapLocation, Tuple<MapLocation, AccessRequirement>>
 		{
 			{MapLocation.ConeriaCastleRoom1, new Tuple<MapLocation, AccessRequirement>(MapLocation.ConeriaCastle1, AccessRequirement.Key)},
+			{MapLocation.ConeriaCastleRoom2, new Tuple<MapLocation, AccessRequirement>(MapLocation.ConeriaCastle1, AccessRequirement.Key)},
 			{MapLocation.ConeriaCastle2, new Tuple<MapLocation, AccessRequirement>(MapLocation.ConeriaCastle1, AccessRequirement.None)},
-			{MapLocation.TempleOfFiends1Room1, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.Key)},
+			{MapLocation.TempleOfFiends1Room1, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.None)},
 			{MapLocation.TempleOfFiends1Room2, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.Key)},
-			{MapLocation.TempleOfFiends1Room3, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.Key)},
+			{MapLocation.TempleOfFiends1Room3, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.None)},
 			{MapLocation.TempleOfFiends1Room4, new Tuple<MapLocation, AccessRequirement>(MapLocation.TempleOfFiends1, AccessRequirement.Key)},
 			{MapLocation.DwarfCaveRoom3, new Tuple<MapLocation, AccessRequirement>(MapLocation.DwarfCave, AccessRequirement.Key)},
 			{MapLocation.ElflandCastleRoom1, new Tuple<MapLocation, AccessRequirement>(MapLocation.ElflandCastle, AccessRequirement.Key)},

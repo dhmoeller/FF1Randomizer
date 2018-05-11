@@ -281,7 +281,7 @@ namespace FF1Lib
 				}
 			} while (!CheckEntranceSanity(shuffled, flags.AllowStartAreaDanager));
 
-			Console.WriteLine($"\nShuffled Maps after sanity count: {sanity}");
+			//Console.WriteLine($"\nShuffled Maps after sanity count: {sanity}");
 
 			foreach (var map in shuffled.OrderBy(x => x.Key))
 			{
